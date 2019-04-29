@@ -33,7 +33,20 @@ function logout (){
   })
 }
 
+function get_profile(){
+  return new Promise((resolve, reject) => {
+    Axios.get(server_ip+'/user/user_profile', axios_config).then((res)=>{
+      if(res.data){
+        resolve(res.data.user_profile)
+      }
+      else {reject("no data received")}
+    }).catch((err)=>{
+      reject(err)
+    })
+  })
+}
 export {
   login,
-  logout
+  logout,
+  get_profile
 };

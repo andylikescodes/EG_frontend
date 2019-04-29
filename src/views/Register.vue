@@ -104,6 +104,7 @@
 <script>
 import { EventBus } from '../utils/event-bus.js';
 import {server_ip, axios_config} from "../configs/web_configs"
+import {login, get_profile} from "../utils/users.js"
 export default{
 
   data(){
@@ -143,7 +144,7 @@ export default{
   },
   methods:{
     validate_user: function(){
-      this.$http.get(server_ip+'/auth/user_exist?username='+this.form.username).then((res)=>{
+      this.$http.get(server_ip+'/auth/username_exist?username='+this.form.username).then((res)=>{
         //console.log(res)
         if(!res.data){
           this.user_error_texts = []
@@ -175,44 +176,12 @@ export default{
       //console.log(this.form.password)
       return (v===this.form.password) || "输入的密码不一致!"
     },
-    login: function(){
-      console.log('logging in')
-      this.$http.post(server_ip+'/auth/login', this.form, axios_config).then((res)=>{
-
-      console.log(res)
-      if(res.data.status=='success'){
-        //alert(JSON.stringify(this.form));
-        console.log('getting user file')
-        this.$http.get(server_ip+'/user/user_profile', axios_config).then((res) =>{
-          if (!res.data.user_profile)
-          {
-            EventBus.$emit("danger_alert","登录失败，请重试！")
-            console.log(res)
-          }
-          else{
-            console.log("add user profile to storage"+res.data.user_profile)
-            this.$store.commit('update_user_profile', res.data.user_profile)
-            this.$store.commit("user_exist", true)
-            EventBus.$emit("success_alert","你已经成功登录！")
-            this.$router.push("/initialize")
-          }
-
-
-        })
-
-      }
-    }).catch((err)=>{
-      //alert(err)
-      EventBus.$emit("danger_alert", "登录失败，请重试")
-      console.log(err)
-    })
-  },
     reset: function(){
       this.$refs.register_form.reset()
     },
     submit: function(){
       if(!this.$refs.register_form.validate()){
-        EventBus.emit("danger_alert","输入还有不合法的地方!")
+        EventBus.$emit("danger_alert","输入还有不合法的地方!")
         return
       }
       console.log(this.form)
@@ -228,12 +197,22 @@ export default{
           }
         }
         else{
-          console.log(res)
+          console.log(res.data)
           //alert('welcome')
           EventBus.$emit("success_alert","注册成功！")
 
         }
-      }).then(this.login)
+      }).then(()=>{return login(this.form)})
+      .then(()=>{
+        this.$router.push("/home")
+        this.$store.commit("change_login_status", true)
+        return get_profile()
+      }).then((user_profile)=>{
+        this.$store.commit("update_user_profile", user_profile)
+      })
+      .catch((err)=>{
+        EventBus.$emit("danger_alert","登陆失败！")
+      })
     }
   }
 }

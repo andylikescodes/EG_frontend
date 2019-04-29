@@ -5,11 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    logged_in: false
+    temporary: {
+    },
+    logged_in: false,
+    user_profile: 0
   },
   getters:{
     logged_in(state){
       return !!state.logged_in
+    },
+    user_profile(state){
+      return state.user_profile
     }
   },
   mutations: {
@@ -26,6 +32,12 @@ export default new Vuex.Store({
 		},
     change_login_status(state, status){
       state.logged_in = !!status
+    },
+    clear_temporary_data(state){
+      //this is for restore these status value back to initial
+    },
+    update_user_profile(state, profile){
+      state.user_profile = profile
     }
   },
   actions: {

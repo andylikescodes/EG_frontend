@@ -58,7 +58,7 @@
 <script>
 import { EventBus } from '../utils/event-bus.js';
 import {server_ip, axios_config} from "../configs/web_configs"
-import {login} from "../utils/users.js"
+import {login, get_profile} from "../utils/users.js"
 //import {mapGetters} from 'vuex'
 export default {
     data: () => ({
@@ -85,6 +85,10 @@ export default {
           EventBus.$emit("success_alert", "登陆成功！")
           this.$router.push("/home")
           this.$store.commit("change_login_status", true)
+          return get_profile()
+        }).then((user_profile)=>{
+          //console.log(user_profile)
+          this.$store.commit("update_user_profile", user_profile)
         }).catch((err)=>{
           console.log(err)
           EventBus.$emit("danger_alert", "登陆失败，请重试！")
