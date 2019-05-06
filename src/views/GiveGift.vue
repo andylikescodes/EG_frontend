@@ -267,9 +267,11 @@ export default {
           console.log('sent gift')
           EventBus.$emit("success_alert","送礼成功")
           this.$router.push("/gift")
+          EventBus.$emit("not_loading","")
         }).catch((err)=>{
           //alert(err)
           console.log(err.data)
+          EventBus.$emit("not_loading","")
         })
       },
       gift_selected(){
@@ -311,6 +313,7 @@ export default {
         if(this.selected_radio == "self_defined") this.selected_message = this.self_defined_msg
         else this.selected_message = this.selected_radio
         console.log(this.selected_message)
+        EventBus.$emit("loading","")
         this.send_gift()
       }
     }

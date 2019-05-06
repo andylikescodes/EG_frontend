@@ -1,10 +1,11 @@
 <template>
   <div>
 
-      <v-btn @click.prevent="send_gift" fab dark color="warning" absolute right top class="ma-5"> <v-icon> fa-gift</v-icon></v-btn>
+
 
 
     <v-container>
+      <v-btn @click.prevent="send_gift" fab dark fixed color="warning" bottom right class="ma-5"> <v-icon> fa-gift</v-icon></v-btn>
       <v-layout wrap>
         <v-flex xs12 md9 offset-md1 ma-2  v-for="gift in gift_histories">
           <GiftCard :gift-image-path="gift.gift_path" :gift-name="gift.gift_name" :from-name="gift.username" :to-name="gift.employee_name" :time="gift.time" :message="gift.message"></GiftCard>
@@ -14,11 +15,13 @@
 
     <Pagination request-length-path="/gift_history/length" :items-per-page="items_per_page" v-on:page_changed="page_changed"></Pagination>
   </div>
+
 </template>
 <script>
 import {server_ip, axios_config} from "../configs/web_configs"
 import Pagination from "../components/Pagination.vue"
 import GiftCard from "../components/GiftCard.vue"
+import { EventBus } from '../utils/event-bus';
 export default {
   components:{
     Pagination,
