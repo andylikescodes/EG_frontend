@@ -190,7 +190,8 @@ export default {
       ],
       selected_radio:"",
       self_defined_msg:"",
-      selected_message:""
+      selected_message:"",
+      loading : false
     }),
     watch:{
     },
@@ -268,10 +269,12 @@ export default {
           EventBus.$emit("success_alert","送礼成功")
           this.$router.push("/gift")
           EventBus.$emit("not_loading","")
+          this.loading = false
         }).catch((err)=>{
           //alert(err)
           console.log(err.data)
           EventBus.$emit("not_loading","")
+          this.loading = false
         })
       },
       gift_selected(){
@@ -310,6 +313,11 @@ export default {
         else return this.messages[key]
       },
       submit_gift(){
+        if (this.loading){
+          console.log("page is busy")
+          return
+        }
+        this.loading = true
         if(this.selected_radio == "self_defined") this.selected_message = this.self_defined_msg
         else this.selected_message = this.selected_radio
         console.log(this.selected_message)

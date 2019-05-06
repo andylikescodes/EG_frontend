@@ -5,6 +5,7 @@
       <span>EternalGarden</span>
       <span class="font-weight-light">Club</span>
     </v-toolbar-title>
+    <v-btn icon @click="music_clicked"><v-icon>music_note</v-icon></v-btn>
     <v-spacer></v-spacer>
     <v-btn
       flat
@@ -37,6 +38,9 @@ import { EventBus } from '../utils/event-bus.js';
       side_icon_clicked(){
         EventBus.$emit("drawer_button_clicked", "")
         //console.log("side icon clicked")
+      },
+      music_clicked(){
+        EventBus.$emit("call_audio_control",'')
       },
       right_btn_clicked(){
         if (this.logged_in){

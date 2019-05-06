@@ -8,6 +8,7 @@
     <v-content>
       <router-view/>
     </v-content>
+    <AudioControl></AudioControl>
   </v-app>
 </template>
 
@@ -17,6 +18,7 @@ import Alert from './components/alert_component'
 import Toolbar from './components/toolbar'
 import Sidebar from './components/NavigationDrawer'
 import Loading from './components/Loading'
+import AudioControl from './components/AudioControl'
 export default {
   name: 'App',
   components: {
@@ -24,7 +26,8 @@ export default {
     HelloWorld,
     Alert,
     Toolbar,
-    Sidebar
+    Sidebar,
+    AudioControl
   },
   data () {
     return {
