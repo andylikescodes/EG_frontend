@@ -23,8 +23,17 @@ Axios.interceptors.response.use(response => {
    EventBus.$emit('danger_alert',"你尚未登录或登录已过期，请重新登录!")
    router.push('/login')
   }
+	else if (error.response.status === 402){
+		EventBus.$emit('danger_alert',"请充值！")
+		return Promise.reject(error.response)
+	}
+	else if (error.response.status === 400){
+		EventBus.$emit('danger_alert',"系统出错！")
+		return Promise.reject(error.response)
+	}
   return error;
 });
+
 
 new Vue({
   router,

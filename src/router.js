@@ -45,6 +45,11 @@ export default new Router({
       component: () => import ("./views/Gift.vue")
     },
     {
+      path:"/give_gift",
+      name:"giftgiving",
+      component: () => import ("./views/GiveGift.vue")
+    },
+    {
       path:"/rankingchart",
       name:"rankingchart",
       component: () => import ("./views/RankingCharts.vue")
