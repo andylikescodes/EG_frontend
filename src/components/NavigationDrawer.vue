@@ -53,7 +53,7 @@
             <v-icon>fa-address-book</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>榜单</v-list-tile-title>
+            <v-list-tile-title>大家的名片</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile @click.stop="click_about">
