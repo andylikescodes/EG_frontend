@@ -53,6 +53,16 @@ export default new Router({
       path:"/rankingchart",
       name:"rankingchart",
       component: () => import ("./views/RankingCharts.vue")
+    },
+    {
+      path:"/reset_password",
+      name:"resetpassword",
+      component: ()=> import ("./views/PasswordReset.vue")
+    },
+    {
+      path:"/reset_password_confirm",
+      name:"resetpassordconfirm",
+      component: ()=>import ("./views/PasswordResetConfirmation.vue")
     }
   ]
 })

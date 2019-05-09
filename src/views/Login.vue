@@ -42,7 +42,11 @@
                 </v-text-field>
               </v-flex>
           </v-layout>
-
+          <v-layout justify-end>
+            <v-flex >
+          <router-link to="/reset_password" >忘记密码？</router-link>
+          </v-flex>
+          </v-layout>
           <v-layout row wrap justify-center>
             <v-flex xs6 md4><v-btn large outline type="submit"> 登录</v-btn></v-flex>
             <v-flex xs6 md4><v-btn large outline color="warning" @click.stop="reset"> 重置</v-btn></v-flex>
