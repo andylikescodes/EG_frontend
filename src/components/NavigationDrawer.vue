@@ -1,6 +1,7 @@
 <template>
 <v-navigation-drawer
       v-model="drawer"
+      id="navigationdrawer"
       app
       :mini-variant.sync="mini"
       hide-overlay
@@ -9,7 +10,7 @@
 
 
 
-<v-list>
+<v-list >
         <v-list-tile avatar @click="click_avatar">
           <v-list-tile-avatar>
             <v-icon v-if="!logged_in" large>account_circle</v-icon>
@@ -56,12 +57,24 @@
             <v-list-tile-title>大家的名片</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+
         <v-list-tile @click.stop="click_about">
           <v-list-tile-action>
             <v-icon>fa-info-circle</v-icon>
           </v-list-tile-action>
+
           <v-list-tile-content>
             <v-list-tile-title>关于</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <v-list-tile @click.stop="click_setting">
+          <v-list-tile-action>
+            <v-icon>fa-cog</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>设置</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -136,7 +149,15 @@ export default {
       else
         this.$router.push("/login")
       this.reset_drawer()
+    },
+    click_setting: function(){
+      this.$router.push('/setting')
+      this.reset_drawer()
     }
   }
 }
 </script>
+
+<style>
+
+</style>

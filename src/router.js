@@ -63,6 +63,11 @@ export default new Router({
       path:"/reset_password_confirm",
       name:"resetpassordconfirm",
       component: ()=>import ("./views/PasswordResetConfirmation.vue")
+    },
+    {
+      path:"/setting",
+      name:"setting",
+      component: () => import ("./views/Setting.vue")
     }
   ]
 })

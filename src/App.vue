@@ -1,5 +1,6 @@
 <template>
-  <v-app>
+  <v-app >
+    <div :class="theme.name">
     <Alert/>
 
     <Toolbar/>
@@ -9,6 +10,7 @@
       <router-view/>
     </v-content>
     <AudioControl></AudioControl>
+    </div>
   </v-app>
 </template>
 
@@ -19,6 +21,7 @@ import Toolbar from './components/toolbar'
 import Sidebar from './components/NavigationDrawer'
 import Loading from './components/Loading'
 import AudioControl from './components/AudioControl'
+import {mapGetters} from 'vuex'
 export default {
   name: 'App',
   components: {
@@ -29,6 +32,12 @@ export default {
     Sidebar,
     AudioControl
   },
+  mounted(){
+  },
+  computed:{
+    ...mapGetters({
+      theme: "theme"
+    })},
   data () {
     return {
       //
@@ -36,3 +45,9 @@ export default {
   }
 }
 </script>
+
+<style>
+@import './styles/themes.css';
+@import './styles/animations.css';
+
+</style>
