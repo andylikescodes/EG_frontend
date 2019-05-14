@@ -4,8 +4,9 @@
 }
 
 .theme-bluegreen #toolbar {
-  background-color: #C8F3E9
+  background-color: #C8F3E9;
 }
+
 
 /*--------------------theme blue------------------------------------------ */
 .theme-blue #navigationdrawer {
@@ -16,6 +17,7 @@
   background-color: #A6E3FC;
   /* background-color: #F3C8F3 */
 }
+
 /*--------------------theme grey------------------------------------------ */
 .theme-grey #navigationdrawer {
   background-color:#ECECEC;
@@ -31,5 +33,5 @@
 }
 
 .theme-purple #toolbar {
-  background-color: #F3C8F3
+  background-color: #F3C8F3;
 }

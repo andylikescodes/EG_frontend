@@ -10,6 +10,7 @@
       <router-view/>
     </v-content>
     <AudioControl></AudioControl>
+    <Botnav></Botnav>
     </div>
   </v-app>
 </template>
@@ -21,16 +22,17 @@ import Toolbar from './components/toolbar'
 import Sidebar from './components/NavigationDrawer'
 import Loading from './components/Loading'
 import AudioControl from './components/AudioControl'
+import Botnav from './components/Botnav'
 import {mapGetters} from 'vuex'
 export default {
   name: 'App',
   components: {
     Loading,
-    HelloWorld,
     Alert,
     Toolbar,
     Sidebar,
-    AudioControl
+    AudioControl,
+    Botnav
   },
   mounted(){
   },

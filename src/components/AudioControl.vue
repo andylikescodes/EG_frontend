@@ -88,7 +88,6 @@ import {server_ip, axios_config} from "../configs/web_configs"
         this.audio.loop = val
       },
       playing:function(val){
-        console.log("value changed")
         this.play_icon = val?"pause":"play_arrow"
       }
     },

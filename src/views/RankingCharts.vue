@@ -1,6 +1,6 @@
 <template>
   <div class="rank">
-    <h1 style="text-align:center;" class="heading--text mt-3">大家的名片</h1>
+    <!-- <h1 style="text-align:center;" class="heading--text mt-3">大家的名片</h1> -->
       <v-container>
       <v-layout wrap align-center="" column v-for="(member, index) in team" :key="index" >
         <v-flex>
