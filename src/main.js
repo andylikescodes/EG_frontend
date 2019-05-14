@@ -9,6 +9,13 @@ import { EventBus } from './utils/event-bus.js';
 Vue.prototype.$http = Axios;
 Vue.config.productionTip = false
 
+//make v-style component to render style dynamically
+Vue.component('v-style', {
+  render: function (createElement) {
+    return createElement('style', this.$slots.default)
+  }
+});
+
 //each mutation will be cached in local storage
 store.subscribe((mutation, state) => {
 	// Store the state object as a JSON string

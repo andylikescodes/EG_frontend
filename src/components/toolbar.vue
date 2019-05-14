@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar app  id="toolbar">
+  <v-toolbar app :class="{'backlit':backlit}"  id="toolbar">
     <v-toolbar-side-icon @click.stop="side_icon_clicked"></v-toolbar-side-icon>
     <v-toolbar-title class="headline text-uppercase">
       <span>EternalGarden</span>
@@ -27,7 +27,8 @@ import { EventBus } from '../utils/event-bus.js';
     },
     computed:{
       ...mapGetters({
-        logged_in: 'logged_in'
+        logged_in: 'logged_in',
+        backlit: "backlit"
       }),
       right_btn_text(){
         if (this.logged_in) return "登出"
@@ -65,10 +66,4 @@ import { EventBus } from '../utils/event-bus.js';
 /*theme red: #FF6666;
   theme yellow: #FFc107
 */
-  #toolbar {
-    /*background-color: #A6E3FC;*/
-    /* background-color: #ECECEC; */
-    /* background-color: #F3C8F3 */
-    background-color: #C8F3E9
-  }
 </style>

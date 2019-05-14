@@ -1,0 +1,35 @@
+/*--------------------theme bluegreen------------------------------------------ */
+.theme-bluegreen #navigationdrawer {
+  background-color:#C8F3E9;
+}
+
+.theme-bluegreen #toolbar {
+  background-color: #C8F3E9
+}
+
+/*--------------------theme blue------------------------------------------ */
+.theme-blue #navigationdrawer {
+  background-color:#A6E3FC;
+}
+
+.theme-blue #toolbar {
+  background-color: #A6E3FC;
+  /* background-color: #F3C8F3 */
+}
+/*--------------------theme grey------------------------------------------ */
+.theme-grey #navigationdrawer {
+  background-color:#ECECEC;
+}
+
+.theme-grey #toolbar {
+  background-color: #ECECEC;
+}
+
+/*--------------------theme purple------------------------------------------ */
+.theme-purple #navigationdrawer {
+  background-color:#F3C8F3;
+}
+
+.theme-purple #toolbar {
+  background-color: #F3C8F3
+}

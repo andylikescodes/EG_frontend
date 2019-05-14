@@ -57,12 +57,12 @@
             <v-list-tile-title>大家的名片</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        
+
         <v-list-tile @click.stop="click_about">
           <v-list-tile-action>
             <v-icon>fa-info-circle</v-icon>
           </v-list-tile-action>
-          
+
           <v-list-tile-content>
             <v-list-tile-title>关于</v-list-tile-title>
           </v-list-tile-content>
@@ -72,7 +72,7 @@
           <v-list-tile-action>
             <v-icon>fa-cog</v-icon>
           </v-list-tile-action>
-          
+
           <v-list-tile-content>
             <v-list-tile-title>设置</v-list-tile-title>
           </v-list-tile-content>
@@ -159,7 +159,5 @@ export default {
 </script>
 
 <style>
-#navigationdrawer {
-  background-color:#A6E3FC;
-}
+
 </style>

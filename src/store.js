@@ -8,7 +8,15 @@ export default new Vuex.Store({
     temporary: {
     },
     logged_in: false,
-    user_profile: 0
+    user_profile: 0,
+    settings: {
+      backlit: false,
+      theme: {
+        name : "theme-blue",
+        alias : "淡定蓝",
+        main_color: "#A6E3FC"
+      }
+    }
   },
   getters:{
     logged_in(state){
@@ -16,6 +24,12 @@ export default new Vuex.Store({
     },
     user_profile(state){
       return state.user_profile
+    },
+    theme(state){
+      return state.settings.theme
+    },
+    backlit(state){
+      return state.settings.backlit
     }
   },
   mutations: {
@@ -38,6 +52,12 @@ export default new Vuex.Store({
     },
     update_user_profile(state, profile){
       state.user_profile = profile
+    },
+    update_theme (state, new_theme){
+      state.settings.theme = new_theme
+    },
+    switch_backlit (state, val){
+      state.settings.backlit = val
     }
   },
   actions: {
