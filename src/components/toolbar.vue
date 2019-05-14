@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar app>
+  <v-toolbar app  id="toolbar">
     <v-toolbar-side-icon @click.stop="side_icon_clicked"></v-toolbar-side-icon>
     <v-toolbar-title class="headline text-uppercase">
       <span>EternalGarden</span>
@@ -62,5 +62,13 @@ import { EventBus } from '../utils/event-bus.js';
 </script>
 
 <style>
-
+/*theme red: #FF6666;
+  theme yellow: #FFc107
+*/
+  #toolbar {
+    /*background-color: #A6E3FC;*/
+    /* background-color: #ECECEC; */
+    /* background-color: #F3C8F3 */
+    background-color: #C8F3E9
+  }
 </style>

@@ -53,6 +53,11 @@ export default new Router({
       path:"/rankingchart",
       name:"rankingchart",
       component: () => import ("./views/RankingCharts.vue")
+    },
+    {
+      path:"/setting",
+      name:"setting",
+      component: () => import ("./views/Setting.vue")
     }
   ]
 })
