@@ -88,6 +88,17 @@
           </v-list-tile-content>
         </v-list-tile>
 
+        <v-list-tile v-if="user_profile.groupid==4 || user_profile.groupid == 5" @click.stop="click_user_management">
+          <!-- this will only show when groupid > = 4 namely, customer service and above -->
+          <v-list-tile-action>
+            <v-icon>fa-book-reader</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>用户管理 （仅对你可见）</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
 
       </v-list>
     </v-navigation-drawer>
@@ -166,6 +177,10 @@ export default {
     },
     click_setting: function(){
       this.$router.push('/setting')
+      this.reset_drawer()
+    },
+    click_user_management: function(){
+      this.$router.push('/user_manage')
       this.reset_drawer()
     }
   }

@@ -73,6 +73,11 @@ export default new Router({
       path:"/setting",
       name:"setting",
       component: () => import ("./views/Setting.vue")
+    },
+    {
+      path:"/user_manage",
+      name:"userManage",
+      component: () => import ("./views/UserManage.vue")
     }
   ]
 })
