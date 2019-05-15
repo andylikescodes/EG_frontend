@@ -8,7 +8,7 @@
       <v-btn @click.prevent="send_gift" fab dark fixed color="warning" bottom right class="ma-5"> <v-icon> fa-gift</v-icon></v-btn>
       <v-layout wrap>
         <v-flex xs12 md9 offset-md1 ma-2  v-for="gift in gift_histories">
-          <GiftCard :gift-image-path="gift.gift_path" :gift-name="gift.gift_name" :from-name="gift.username" :to-name="gift.employee_name" :time="gift.time" :message="gift.message"></GiftCard>
+          <GiftCard :gift-image-path="gift.gift_path" :gift-name="gift.gift_name" :from-name="gift.username" :to-name="gift.employee_name" :time="get_local_time(gift.time)" :message="gift.message"></GiftCard>
         </v-flex>
       </v-layout>
     </v-container>
@@ -19,6 +19,7 @@
 </template>
 <script>
 import {server_ip, axios_config} from "../configs/web_configs"
+import {UTC2Local} from "../utils/time"
 import Pagination from "../components/Pagination.vue"
 import GiftCard from "../components/GiftCard.vue"
 import { EventBus } from '../utils/event-bus';
@@ -50,6 +51,9 @@ export default {
         }).catch(err =>{
           console.log(err.data)
         })
+      },
+      get_local_time(time){
+        return UTC2Local(time)
       },
       send_gift(){
         this.$router.push("give_gift")

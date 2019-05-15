@@ -49,6 +49,7 @@
 
 <script>
 import {server_ip, axios_config} from "../configs/web_configs"
+
   export default {
     props: ["giftName", "fromName", "toName", "time", "message", "giftImagePath"],
     mounted(){
@@ -65,6 +66,9 @@ import {server_ip, axios_config} from "../configs/web_configs"
       return {
       }
     },
+    methods:{
+
+    }
   }
 </script>
 
