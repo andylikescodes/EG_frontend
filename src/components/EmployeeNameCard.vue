@@ -1,8 +1,10 @@
 <template >
 <v-card :color="bg_color" class="ma-1 pa-3">
-    <v-layout>
+    <v-layout justify-center wrap>
       <v-flex xs12>
+        <v-avatar size="150">
           <img :src="compute_path(member.avatar_path)" height="300px">
+        </v-avatar>
       </v-flex>
       </v-layout>
       <v-layout wrap>

@@ -40,6 +40,11 @@ export default new Router({
       component: () => import ("./views/UserProfile.vue")
     },
     {
+      path:"/help",
+      name:"help",
+      component: () => import ("./views/Help.vue")
+    },
+    {
       path:"/gift",
       name:"gift",
       component: () => import ("./views/Gift.vue")

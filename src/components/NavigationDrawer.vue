@@ -68,6 +68,16 @@
           </v-list-tile-content>
         </v-list-tile>
 
+        <v-list-tile @click.stop="click_help">
+          <v-list-tile-action>
+            <v-icon>fa-hands-helping</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>帮助</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
         <v-list-tile @click.stop="click_setting">
           <v-list-tile-action>
             <v-icon>fa-cog</v-icon>
@@ -126,6 +136,10 @@ export default {
     },
     click_about: function(){
       this.$router.push("/about")
+      this.reset_drawer()
+    },
+    click_help: function(){
+      this.$router.push("/help")
       this.reset_drawer()
     },
     reset_drawer: function(){
