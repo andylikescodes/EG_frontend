@@ -3,12 +3,11 @@
     <v-tabs>
       <v-tab
         ripple>
-        修改账户余额
+        充值/消费
 
       </v-tab>
       <v-tab-item>
         <v-card flat>
-          <v-card-text>这里修改账户余额</v-card-text>
           <BalanceManage></BalanceManage>
         </v-card>
       </v-tab-item>
