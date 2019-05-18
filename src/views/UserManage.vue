@@ -7,12 +7,10 @@
 
       </v-tab>
       <v-tab
-      touchless
         ripple>
         用户账户管理
 
       </v-tab>
-
     </v-tabs>
     <v-tabs-items v-model="tabs" touchless>
     <v-tab-item>
