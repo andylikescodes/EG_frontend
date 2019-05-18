@@ -28,7 +28,7 @@
         <strong> 邮箱：</strong> <span>{{user.email}}</span>
       </p>
       <p>
-        <strong> 余额：</strong> <span>{{user.balance}}</span>
+        <strong> 余额：</strong> <span>${{user.balance}}</span>
       </p>
       <p>
         <strong> groupID ：</strong> <span>{{user.groupid}}</span>
@@ -46,6 +46,11 @@
 
     </v-layout >
     <div v-if="show_userinfo">
+      <v-layout ma-4>
+        <v-flex>
+      <BalanceActivities ref="balance_activities" :userid="userid"></BalanceActivities>
+    </v-flex>
+      </v-layout>
     <v-layout mx-4 mt-3 wrap>
       <v-flex xs12 md4 offset-md1>
       <v-text-field
@@ -75,27 +80,35 @@
         <v-btn right large color='primary' @click.stop="click_submit_balance_change"> 提交充值/消费信息 </v-btn>
       </v-flex>
     </v-layout>
+
   </div>
   </div>
 </template>
 <script>
 import {server_ip, axios_config} from "../../configs/web_configs"
 import { EventBus } from '../../utils/event-bus';
+import BalanceActivities from './BalanceActivities'
   export default {
+    components: {BalanceActivities},
     props: [],
     mounted(){
     },
     watch:{
     },
+    computed:{
+    },
     data () {
       return {
         input_username: null,
         user: null,
+        userid: null,
         show_userinfo: false,
         description: "客服修改金额 (充值/扣值)",
+        default_descriptiion: "客服修改金额 (充值/扣值)",
         //rules: {number: value => {console.log(this.incremental_balance_ammount);console.log(!isNaN(value)); return !isNaN(value) || '必须是数字'}},
         incremental_balance_ammount: 0,
-        loading: false
+        loading: false,
+
       }
     },
     methods:{
@@ -115,6 +128,7 @@ import { EventBus } from '../../utils/event-bus';
           //console.log(res.data)
 
           this.user = res.data
+          this.userid = this.user.userid
           this.show_userinfo = true
         })
       },
@@ -129,19 +143,23 @@ import { EventBus } from '../../utils/event-bus';
         }
         this.loading = true
         EventBus.$emit("loading")
-        console.log(this.incremental_balance_ammount)
         this.$http.post(server_ip+"/customer_service/add_transaction",
         {
           userid:this.user.userid,
           amount:this.incremental_balance_ammount,
           description:this.description}, axios_config).then((res)=>{
             this.user = res.data
+            this.$refs.balance_activities.renew_activities()
+            this.description = this.default_descriptiion
+            this.incremental_balance_ammount = 0
             this.loading = false
             EventBus.$emit("not_loading")
+            EventBus.$emit("success_alert","账户更改成功！")
           }).catch(err=>{
             console.log(err)
             this.loading = false
             EventBus.$emit("not_loading")
+            EventBus.$emit("danger_alert","系统错误！")
           })
       }
     }
