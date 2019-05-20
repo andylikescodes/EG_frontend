@@ -1,6 +1,6 @@
 {
-  "name": "eg_frontend",
-  "short_name": "eg_frontend",
+  "name": "EG CLUB",
+  "short_name": "EG",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.jpg",
@@ -16,5 +16,5 @@
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#ff6666"
+  "theme_color": "#000000"
 }
