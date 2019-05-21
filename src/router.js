@@ -78,6 +78,11 @@ export default new Router({
       path:"/user_manage",
       name:"userManage",
       component: () => import ("./views/UserManage.vue")
+    },
+    {
+      path:"/employee_registration",
+      name:"employee registration",
+      component: () => import ("./views/EmployeeRegistration.vue")
     }
   ]
 })
