@@ -24,6 +24,7 @@ import Loading from './components/Loading'
 import AudioControl from './components/AudioControl'
 import Botnav from './components/Botnav'
 import {mapGetters} from 'vuex'
+
 export default {
   name: 'App',
   components: {

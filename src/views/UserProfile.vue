@@ -52,13 +52,18 @@
 <script>
 import {mapGetters} from 'vuex'
 import {server_ip, axios_config} from "../configs/web_configs"
+import {default_avatar} from "../assets/images.js"
 export default {
   computed:{
     ...mapGetters({
       user_profile: "user_profile"
     }),
     avatar_path(){
-      return server_ip+this.user_profile.avatar_path
+      if (this.user_profile.avatar_path)
+      return this.user_profile.avatar_path
+      else {
+        return default_avatar
+      }
     }
   },
 

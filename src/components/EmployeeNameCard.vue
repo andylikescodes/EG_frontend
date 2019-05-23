@@ -23,9 +23,6 @@
         <v-flex xs2 v-for="service in JSON.parse(member.services)">
           <div class="text-xs-center">
             <v-chip>
-              <v-avatar v-show="service in icon_paths">
-                <img :src="compute_path(icon_paths[service])">
-              </v-avatar>
               {{service}}
             </v-chip>
         </div>
@@ -45,7 +42,7 @@
     props: ["bg_color", "member"],
     methods:{
       compute_path(path){
-        return server_ip+path
+        return path
       }
     },
     mounted(){

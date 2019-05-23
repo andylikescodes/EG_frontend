@@ -98,7 +98,16 @@
             <v-list-tile-title>用户管理 （仅对你可见）</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile v-if="user_profile.groupid == 5" @click.stop="click_admin">
+          <!-- this will only show when groupid > = 4 namely, customer service and above -->
+          <v-list-tile-action>
+            <v-icon>fa-users-cog</v-icon>
+          </v-list-tile-action>
 
+          <v-list-tile-content>
+            <v-list-tile-title>究极牛逼管理 （仅对你可见）</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
 
       </v-list>
     </v-navigation-drawer>
@@ -107,6 +116,7 @@
 import { EventBus } from '../utils/event-bus.js';
 import {mapGetters} from 'vuex'
 import {server_ip, axios_config} from "../configs/web_configs"
+import {default_avatar} from "../assets/images.js"
 export default {
   computed:{
     ...mapGetters({
@@ -114,7 +124,11 @@ export default {
       logged_in: "logged_in"
     }),
     avatar_source(){
-      return server_ip+this.user_profile.avatar_path
+      if ( this.user_profile.avatar_path  )
+        return this.user_profile.avatar_path
+      else {
+        return default_avatar
+      }
     }
     ,
     avatar_text(){
@@ -181,6 +195,10 @@ export default {
     },
     click_user_management: function(){
       this.$router.push('/user_manage')
+      this.reset_drawer()
+    },
+    click_admin: function(){
+      this.$router.push("/admin")
       this.reset_drawer()
     }
   }
