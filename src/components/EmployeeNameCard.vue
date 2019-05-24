@@ -70,8 +70,7 @@
           <v-btn
             color="green darken-1"
             flat="flat"
-            href="https://discord.gg/EcWarmA"
-            target="_blank"
+            @click="discord_reserve"
           >
             Discord预约
           </v-btn>
@@ -118,6 +117,11 @@
         link.setAttribute("download","QR.jpg")
         link.click()
         this.dialog=false
+      },
+      discord_reserve(){
+        this.dialog = false
+        var win = window.open("https://discord.gg/EcWarmA", '_blank');
+        win.focus();
       }
     },
     mounted(){
