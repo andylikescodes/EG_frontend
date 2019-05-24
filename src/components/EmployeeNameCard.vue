@@ -34,12 +34,16 @@
 
       </v-layout>
       <v-layout row>
+      <v-flex>
       <v-expand-transition>
       <v-btn  v-show="hover" color="primary" @click="message" class=caption>  信息<v-icon dark right>message</v-icon></v-btn>
       </v-expand-transition>
+      </v-flex>
+      <v-flex>
       <v-expand-transition>
       <v-btn v-show="hover"  color="success" @click="make_appointment" class=caption>  预约<v-icon dark right>fa-calendar-check</v-icon></v-btn>
       </v-expand-transition>
+      </v-flex>
       </v-layout>
       </v-container>
   </v-card>
