@@ -68,28 +68,9 @@
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <v-card
-          class="mb-5"
-        >
-
-        <v-list two-line>
-          <v-divider></v-divider>
-         <div  v-for="(employee, key) in employees">
-           <v-list-tile avatar :class="employee_list_classes[key]" @click="select_employee(key)">
-             <v-list-tile-avatar>
-               <img :src="compute_path(employee.avatar_path)">
-             </v-list-tile-avatar>
-
-             <v-list-tile-content>
-               <v-list-tile-title>{{employee.name}}</v-list-tile-title>
-               <v-list-tile-sub-title>{{employee.description}}</v-list-tile-sub-title>
-             </v-list-tile-content>
-           </v-list-tile>
-
-         </div>
-         <v-divider></v-divider>
-       </v-list>
-      </v-card>
+        <EmployeeSelector
+        @selected_employee_changed = "update_selected_employee"
+        ></EmployeeSelector>
 
         <v-btn
           color="primary"
@@ -167,10 +148,12 @@
 </template>
 
 <script>
+import EmployeeSelector from "../components/EmployeeSelector"
 import {server_ip, axios_config} from "../configs/web_configs"
 import { EventBus } from '../utils/event-bus.js';
 export default {
   components:{
+    EmployeeSelector
   },
     data: () => ({
       e1: 1,
@@ -179,8 +162,7 @@ export default {
       card_original_color : 'white',
       selected_gift: null,
       balance : 0,
-      employees: [],
-      employee_list_classes: [],
+
       selected_employee: null,
       messages: [
         "爸爸!你怎么这么厉害!",
@@ -231,14 +213,6 @@ export default {
       }).catch(err=>{
         console.log(err)
       });
-      this.$http.get(server_ip+"/employees/list", axios_config).then(res=>{
-        this.employees = res.data
-        let temp_list = []
-        for (let i = 0; i<this.employees.length; i++){
-          temp_list.push('inactive_list_item')
-        }
-        this.employee_list_classes=temp_list
-      }).catch(err=>{console.log(err)})
     },
     methods:{
       reset_sell_card_color(){
@@ -288,17 +262,8 @@ export default {
         }
         this.e1 = 2
       },
-      select_employee(key){
-        for (let i=0;i<this.employee_list_classes.length;i++){
-          if (i == key){
-            this.$set(this.employee_list_classes, key, 'active_list_item')
-          }
-          else{
-            this.$set(this.employee_list_classes, key, 'inactive_list_item')
-          }
-        }
-        this.selected_employee = this.employees[key]
-        //console.log(this.selected_employee)
+      update_selected_employee(employee){
+        this.selected_employee = employee
       },
       employee_selected(){
         if (!this.selected_employee){
@@ -330,7 +295,4 @@ export default {
 </script>
 <style>
 .sell_card {cursor: pointer;}
-.inactive_list_item {cursor:pointer;}
-.active_list_item {cursor:pointer;
-background:SkyBlue;}
 </style>
