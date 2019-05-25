@@ -88,6 +88,16 @@
           </v-list-tile-content>
         </v-list-tile>
 
+        <v-list-tile @click.stop="click_share">
+          <v-list-tile-action>
+            <v-icon>fa-share-alt</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>分享</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
         <v-list-tile v-if="user_profile.groupid==4 || user_profile.groupid == 5" @click.stop="click_user_management">
           <!-- this will only show when groupid > = 4 namely, customer service and above -->
           <v-list-tile-action>
@@ -114,6 +124,7 @@
     </template>
 <script>
 import { EventBus } from '../utils/event-bus.js';
+import {copyToClipboard} from  '../utils/other_utils.js'
 import {mapGetters} from 'vuex'
 import {server_ip, axios_config} from "../configs/web_configs"
 import {default_avatar} from "../assets/images.js"
@@ -200,7 +211,29 @@ export default {
     click_admin: function(){
       this.$router.push("/admin")
       this.reset_drawer()
-    }
+    },
+    click_share: function(){
+      if (navigator.share) {
+        navigator.share({
+          title: 'Eternal Garden Club',
+          text: '每天都是固定的人打游戏是不是很无聊？ 四缺一想找个厉害有趣的小哥哥小姐姐一起玩儿？ 想要提高自己的游戏水平？ 喜欢热闹友好的氛围？ 北美游戏俱乐部：Eternal Garden替你筛选出Vodka的千分大神，梅子酒王者姑娘，人美声甜的钻石白金小姐姐。所有温暖和爱给独一无二的你。 来玩吧，今天也是华灯如昼的狂欢！',
+          url: 'https://eternalgardenclubapp.com',
+          })
+          .then(() => {
+            console.log('Successful share')
+            this.reset_drawer()
+          })
+          .catch((error) => {
+            console.log('Error sharing', error)});
+            this.reset_drawer()
+        }
+      else {
+        console.log("no share functionality")
+        copyToClipboard("https://eternalgardenclubapp.com")
+        EventBus.$emit("success_alert", "已经复制到剪贴板，您可以直接在需要的地方粘贴")
+        this.reset_drawer()
+      }
+      }
   }
 }
 </script>
