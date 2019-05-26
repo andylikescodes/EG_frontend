@@ -285,6 +285,7 @@ import { EventBus } from '../utils/event-bus.js';
       },
       image_updated(val){
         this.user.avatar_path = val
+        console.log(val)
       }
     }
   }

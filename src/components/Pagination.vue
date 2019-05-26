@@ -24,6 +24,7 @@ import {server_ip, axios_config} from "../configs/web_configs"
     watch:{
       page(val){
         //console.log(val)
+        window.scroll({top: 0, left: 0, behavior: 'smooth' });
         this.$emit("page_changed", val)
       }
     },
