@@ -5,7 +5,7 @@
 
 
     <v-container>
-      <v-btn @click.prevent="send_gift" fab dark fixed color="warning" bottom right class="ma-5"> <v-icon> fa-gift</v-icon></v-btn>
+      <v-btn @click.prevent="send_gift" fab dark fixed color="warning" style="top:12%" top right class="mx-5"> <v-icon> fa-gift</v-icon></v-btn>
       <v-layout wrap>
         <v-flex xs12 md9 offset-md1 ma-2  v-for="gift in gift_histories">
           <GiftCard :gift-image-path="gift.gift_path" :gift-name="gift.gift_name" :from-name="gift.username" :to-name="gift.employee_name" :time="get_local_time(gift.time)" :message="gift.message"></GiftCard>
