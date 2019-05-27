@@ -121,12 +121,13 @@ export default {
       Object.assign(temp_object,this.temp_user_profile)
       for (let key in temp_object){
         if (this.user_profile[key]==temp_object[key]){
-          console.log(this.user_profile[key]+' '+temp_object[key])
+          //console.log(this.user_profile[key]+' '+temp_object[key])
           delete temp_object[key]
           //console.log(key)
         }
       }
       if (Object.keys(temp_object).length === 0){
+
         return
       }
       // delete unchanged attributes to save bandwidth (otherwise, every update request will submit unchanged avatar images)
@@ -134,6 +135,8 @@ export default {
       this.$http.post(server_ip+"/user/update", temp_object, axios_config).then(res=>{
         if (res.data == "success"){
           this.$store.commit("update_user_profile", this.temp_user_profile)
+          this.temp_user_profile = {}
+          this.temp_user_profile = Object.assign(this.temp_user_profile, this.user_profile) //detach the two objects
           EventBus.$emit("success_alert","更改成功！")
         }
         else console.log(res.data)
