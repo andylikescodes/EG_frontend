@@ -12,7 +12,7 @@
           <v-list-tile>
             <v-list-tile-content>
               <v-list-tile-title>出山 （Shaye填词）  </v-list-tile-title>
-              <v-list-tile-sub-title>Renka </v-list-tile-sub-title>
+              <v-list-tile-sub-title>Ranka </v-list-tile-sub-title>
 
             </v-list-tile-content>
             <v-spacer></v-spacer>
