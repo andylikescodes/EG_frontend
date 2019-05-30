@@ -3,7 +3,7 @@
     <!-- <h1 style="text-align:center;" class="heading--text mt-3">大家的名片</h1> -->
       <v-container>
       <v-layout wrap justify  >
-        <v-flex xs12 md2 ma-2 v-for="(member, index) in team" :key="index">
+        <v-flex xs12 ma-2 v-for="(member, index) in team" :key="index">
         <EmployeeNameCard bg_color="white" :member="member">
         </EmployeeNameCard>
         </v-flex>

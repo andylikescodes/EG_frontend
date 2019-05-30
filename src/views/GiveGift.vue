@@ -22,18 +22,11 @@
 
         <v-container>
         <v-layout wrap>
-          <v-flex xs12 md4 v-for="(gift, key) in gifts" ma-3>
+          <v-flex xs12 md4 v-for="(gift, key) in activated_gifts" ma-3>
           <v-card class="sell_card" @click="card_clicked(key)" :color="sell_card_colors[key]" :ref="'sell_card'+key">
             <v-img
           :src="compute_path(gift.figure_path)"
         >
-        <!-- <v-container fill-height fluid>
-            <v-layout fill-height>
-              <v-flex xs12 align-end flexbox>
-                <span class="headline">{{gift.name}}</span>
-              </v-flex>
-            </v-layout>
-          </v-container> -->
         </v-img>
         <v-divider></v-divider>
         <v-card-title>
@@ -193,6 +186,12 @@ export default {
       selected_employee_name(){
         if(this.selected_employee) return this.selected_employee.name
         else return ""
+      },
+      activated_gifts(){
+        return this.gifts.filter((x)=>{
+          
+          return x.activated==="true"
+        })
       }
 
     },
@@ -200,7 +199,7 @@ export default {
       this.$http.get(server_ip+"/gift/list", axios_config).then(res=>{
         this.gifts = res.data
         let temp_list = []
-        for (let i = 0; i<this.gifts.length; i++){
+        for (let i = 0; i<this.activated_gifts.length; i++){
           temp_list.push(this.card_original_color)
         }
         this.sell_card_colors=temp_list
@@ -230,7 +229,7 @@ export default {
         // console.log(this.$refs['sell_card'+1])
         this.reset_sell_card_color()
         this.set_selected_card(key)
-        this.selected_gift = this.gifts[key]
+        this.selected_gift = this.activated_gifts[key]
         //console.log(this.selected_gift)
         //this.$refs['sell_card'+key][0].color="pink lighten-4"
       },

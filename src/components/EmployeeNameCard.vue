@@ -4,14 +4,12 @@
 <v-card :color="bg_color" class="ma-1 pa-3" slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
   <v-container>
     <v-layout justify-center wrap>
-      <v-flex xs12>
+      <v-flex xs12 md4>
         <v-avatar size="150">
           <img :src="compute_path(member.avatar_path)" height="200px">
         </v-avatar>
       </v-flex>
-      </v-layout>
-      <v-layout wrap>
-      <v-flex xs12>
+      <v-flex xs12 md8>
           <v-card-title primary-title>
             <div>
               <div class="headline">{{member.name}}</div>
@@ -34,18 +32,15 @@
         </div>
 
       </v-layout>
-      <v-layout row>
-      <v-flex>
+
       <v-expand-transition>
       <v-btn  v-show="hover" color="primary" @click="message" class=caption>  信息<v-icon dark right>message</v-icon></v-btn>
       </v-expand-transition>
-      </v-flex>
-      <v-flex>
+
       <v-expand-transition>
       <v-btn v-show="hover"  color="success" @click.stop="make_appointment" class=caption>  预约<v-icon dark right>fa-calendar-check</v-icon></v-btn>
       </v-expand-transition>
-      </v-flex>
-      </v-layout>
+
       </v-container>
   </v-card>
 
