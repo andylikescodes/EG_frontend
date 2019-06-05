@@ -280,6 +280,10 @@ export default {
           console.log("page is busy")
           return
         }
+        if(!this.selected_radio){
+          EventBus.$emit("danger_alert","请选择或者输入一句想说的话！")
+          return
+        }
         this.loading = true
         if(this.selected_radio == "self_defined") this.selected_message = this.self_defined_msg
         else this.selected_message = this.selected_radio
