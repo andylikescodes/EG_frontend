@@ -109,12 +109,12 @@ import { EventBus } from '../../utils/event-bus';
       tabs: null,
       password:'',
       reset_user:{
-        userid: null,
+        _id: null,
         username: '',
         email:''
       },
       user:{
-        userid: null,
+        _id: null,
         username: '',
         email:''
       },
@@ -122,7 +122,7 @@ import { EventBus } from '../../utils/event-bus';
       username_disabled: false
     }),
     watch:{
-      "user.userid":function(val){
+      "user._id":function(val){
         if (val){
           this.email_disabled=true
           this.username_disabled=true
@@ -153,7 +153,7 @@ import { EventBus } from '../../utils/event-bus';
         })
       },
       submit () {
-        if (!this.user.userid){
+        if (!this.user._id){
           EventBus.$emit("danger_alert","请先输入用户名或邮箱检索用户")
           return
         }
@@ -174,7 +174,7 @@ import { EventBus } from '../../utils/event-bus';
           EventBus.$emit("danger_alert", "请输入密码")
           return
         }
-        if (!this.user.userid){
+        if (!this.user._id){
           EventBus.$emit("danger_alert", "请先在顶部面板检索用户")
           return
         }

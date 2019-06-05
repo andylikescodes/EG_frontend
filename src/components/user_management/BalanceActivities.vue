@@ -30,7 +30,7 @@
 
 <script>
 import {server_ip, axios_config} from "../../configs/web_configs"
-import {UTC2Local} from "../../utils/time"
+import {format_time} from "../../utils/time"
 //import { EventBus } from '../../utils/event-bus';
   export default {
     data(){
@@ -70,8 +70,11 @@ import {UTC2Local} from "../../utils/time"
     methods:{
       renew_activities(){
         this.$http.get(server_ip+"/customer_service/transaction_histories", {...axios_config,params:{userid:this.userid}}).then(res=>{
+          //console.log(res.data)
           let temp = res.data.map(function(x){
-            x.time = UTC2Local(x.time)
+            
+            x.time = format_time(x.createdAt)
+            x.customer_service_name = x.customer_service.username
             return x
           })
           this.activities = temp

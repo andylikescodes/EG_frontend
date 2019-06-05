@@ -136,7 +136,7 @@ import { EventBus } from '../utils/event-bus.js';
         if (res.data){
           //console.log(res.data)
           this.email = res.data.email
-          if (res.data.userid){
+          if (res.data._id){
             this.old_user = true
             for (let key in res.data) this.user[key]=res.data[key]
           }
@@ -153,7 +153,7 @@ import { EventBus } from '../utils/event-bus.js';
         }
       }).catch(err=>{
         console.log(err)
-        this.page_status = "可能由于时间过长，注册链接已失效，请重新注册邮件！"
+        this.page_status = "可能由于时间过长，注册链接已失效，请重新申请注册邮件！"
       })
 
     },

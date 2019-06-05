@@ -3,4 +3,9 @@ function UTC2Local(UTC_time){
   return date.toLocaleString()
 }
 
-export {UTC2Local}
+function format_time(str){
+  var date = new Date(str)
+  return date.toLocaleString()
+}
+
+export {UTC2Local, format_time}

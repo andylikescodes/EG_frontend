@@ -22,7 +22,7 @@
 
         <v-container>
         <v-layout wrap>
-          <v-flex xs12 md4 v-for="(gift, key) in activated_gifts" ma-3>
+          <v-flex xs12 md4 v-for="(gift, key) in activated_gifts" ma-3 :key="key">
           <v-card class="sell_card" @click="card_clicked(key)" :color="sell_card_colors[key]" :ref="'sell_card'+key">
             <v-img
           :src="compute_path(gift.figure_path)"
@@ -98,7 +98,7 @@
               选择你想告诉TA的话：
             </div>
               <v-radio-group v-model="selected_radio" :mandatory="false">
-                  <v-radio v-for="(msg, key) in messages" :label="msg" :value="compute_message(key)"></v-radio>
+                  <v-radio v-for="(msg, key) in messages" :label="msg" :value="compute_message(key)" :key="key"></v-radio>
                   <!-- <v-radio label="爸爸!你怎么这么厉害!" value="爸爸!你怎么这么厉害!"></v-radio>
                   <v-radio label="卧槽，多亏你gay住了,不然输了!" value="卧槽，多亏你gay住了,不然输了!"></v-radio>
                   <v-radio label="人头丛中过,滴血不沾身 (╯▽╰)" value="人头丛中过,滴血不沾身 (╯▽╰)"></v-radio>
@@ -189,8 +189,7 @@ export default {
       },
       activated_gifts(){
         return this.gifts.filter((x)=>{
-          
-          return x.activated==="true"
+          return x.activated
         })
       }
 
@@ -237,7 +236,7 @@ export default {
         return server_ip+path
       },
       send_gift: function(){
-        this.$http.post(server_ip+'/gift/send_gift', {giftid:this.selected_gift.giftid, to_id:this.selected_employee.employeeid, message:this.selected_message}, axios_config).then((res)=>{
+        this.$http.post(server_ip+'/gift/send_gift', {giftid:this.selected_gift._id, to_id:this.selected_employee._id, message:this.selected_message}, axios_config).then((res)=>{
           console.log('sent gift')
           EventBus.$emit("success_alert","送礼成功")
           this.$router.push("/gift")

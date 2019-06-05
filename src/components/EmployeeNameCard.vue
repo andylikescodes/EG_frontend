@@ -12,7 +12,7 @@
       <v-flex xs12 md8>
           <v-card-title primary-title>
             <div>
-              <div class="headline">{{member.name}}</div>
+              <div class="headline">{{member.username}}</div>
               <div class="subheading"> 人气: {{member.popularity}}</div>
               <div class="subheading font-italic">{{member.description}}</div>
             </div>
@@ -22,7 +22,7 @@
       <v-divider light></v-divider>
       <v-layout wrap>
           <div class="text-xs-center">
-            <v-chip v-for="service in JSON.parse(member.services)">
+            <v-chip v-for="service in JSON.parse(member.services)" :key="service">
               <!-- <v-avatar v-show="service in icon_paths">
                 <img :src="compute_path(icon_paths[service])">
               </v-avatar> -->

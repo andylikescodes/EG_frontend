@@ -19,7 +19,7 @@
     <v-flex xs12 md6 offset-md1>
     <div class="ma-4" v-if="show_userinfo" >
       <p>
-        <strong> UID：</strong> <span>{{user.userid}}</span>
+        <strong> UID：</strong> <span>{{user._id}}</span>
       </p>
       <p>
         <strong> 用户名：</strong> <span>{{user.username}}</span>
@@ -128,8 +128,12 @@ import BalanceActivities from './BalanceActivities'
           //console.log(res.data)
 
           this.user = res.data
-          this.userid = this.user.userid
           this.show_userinfo = true
+          this.userid = this.user._id
+
+          //this.$refs.balance_activities.renew_activities()
+
+          
         })
       },
       click_submit_balance_change(){
@@ -145,7 +149,7 @@ import BalanceActivities from './BalanceActivities'
         EventBus.$emit("loading")
         this.$http.post(server_ip+"/customer_service/add_transaction",
         {
-          userid:this.user.userid,
+          userid:this.user._id,
           amount:this.incremental_balance_ammount,
           description:this.description}, axios_config).then((res)=>{
             this.user = res.data

@@ -5,14 +5,14 @@
 
   <v-list two-line>
     <v-divider></v-divider>
-   <div  v-for="(employee, key) in employees">
+   <div  v-for="(employee, key) in employees" :key="key">
      <v-list-tile avatar :class="employee_list_classes[key]" @click="select_employee(key)">
        <v-list-tile-avatar>
          <img :src="employee.avatar_path">
        </v-list-tile-avatar>
 
        <v-list-tile-content>
-         <v-list-tile-title>{{employee.name}}</v-list-tile-title>
+         <v-list-tile-title>{{employee.username}}</v-list-tile-title>
          <v-list-tile-sub-title>{{employee.description}}</v-list-tile-sub-title>
        </v-list-tile-content>
      </v-list-tile>
@@ -53,6 +53,8 @@ export default {
   mounted(){
     this.$http.get(server_ip+"/employees/list", axios_config).then(res=>{
       this.employees = res.data
+      console.log(this.employees)
+      //to make a initial employee classes list:
       let temp_list = []
       for (let i = 0; i<this.employees.length; i++){
         temp_list.push('inactive_list_item')
