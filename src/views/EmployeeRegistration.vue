@@ -250,7 +250,7 @@ import { EventBus } from '../utils/event-bus.js';
             EventBus.$emit("not_loading")
           })
         }
-        else{
+        else{//new user
           this.user.email = this.email
           this.$http.post(server_ip+"/auth/register",this.user, axios_config).then(res=>{
             if (res.data == "success"){
@@ -272,7 +272,7 @@ import { EventBus } from '../utils/event-bus.js';
                 EventBus.$emit("not_loading")
               })
             }
-            else{
+            else{//register new user fail
               EventBus.$emit("danger_alert","注册用户失败！")
               this.loading  = false
               EventBus.$emit("not_loading")
