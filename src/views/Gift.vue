@@ -8,7 +8,7 @@
       <v-btn @click.prevent="send_gift" fab dark fixed color="warning" style="top:12%" top right class="mx-5"> <v-icon> fa-gift</v-icon></v-btn>
       <v-layout wrap>
         <v-flex xs12 md9 offset-md1 ma-2  v-for="gift in gift_histories" :key="gift._id">
-          <GiftCard :gift-image-path="gift.gift.figure_path" :gift-name="gift.gift_name" :from-name="gift.from_user.username" :to-name="gift.to_employee.username" :time="get_time(gift.createdAt)" :message="gift.message"></GiftCard>
+          <GiftCard :gift-image-path="gift.gift.figure_path" :gift-name="gift.gift.name" :from-name="gift.from_user.username" :to-name="gift.to_employee.username" :time="get_time(gift.createdAt)" :message="gift.message"></GiftCard>
         </v-flex>
       </v-layout>
     </v-container>

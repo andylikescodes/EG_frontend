@@ -7,8 +7,8 @@
           <v-card flat class="text-xs-center ma-3" color="grey lighten-3">
             <ImageUpload :imgUrl="avatar_path" @image_updated="image_updated"></ImageUpload>
             <v-card-text>
-              <p class="display-1">{{temp_user_profile.username}}</p>
-              <p class="title light-blue--text">
+              <p class="default-font user-profile-big">{{temp_user_profile.username}}</p>
+              <p class="light-blue--text default-font user-profile-normal">
                 {{temp_user_profile.signature}}
               </p>
 
@@ -20,17 +20,17 @@
         <p> </p>
         <v-flex xs12 md6>
           <div class="caption grey--text">
-            <p class="title">邮箱: {{temp_user_profile.email}}</p>
+            <p class="default-font user-profile-normal">邮箱: {{temp_user_profile.email}}</p>
           </div>
         </v-flex>
         <v-flex xs12 md6>
           <div class="caption grey--text">
-             <p class="title">账户余额: {{temp_user_profile.balance}}</p>
+             <p class="user-profile-normal default-font">账户余额: {{temp_user_profile.balance}}</p>
           </div>
         </v-flex>
         <v-flex xs12 md6>
 
-            <EditableDate @edit_completed="update_user" prefix="生日" class=" title grey--text" rows="2" v-model="temp_user_profile.birthday"></EditableDate>
+            <EditableDate @edit_completed="update_user" prefix="生日" class=" user-profile-normal grey--text default-font" rows="2" v-model="temp_user_profile.birthday"></EditableDate>
 
         </v-flex>
         <v-flex xs12 md6>
@@ -39,14 +39,16 @@
               @edit_completed="update_user"
               rows="1"
               prefix="城市"
+              pass_in_class="user-profile-normal default-font"
               v-model="temp_user_profile.city"
             >
             </Editable>
           </div>
         </v-flex>
         <v-flex xs12 md6>
-          <div class="caption grey--text">
+          <div class="caption grey--text ">
             <Editable
+              pass_in_class="user-profile-normal default-font"
               rows="2"
               prefix="签名"
               @edit_completed="update_user"
@@ -148,3 +150,13 @@ export default {
   }
 }
 </script>
+<style>
+.user-profile-big{
+  font-size: 24pt;
+}
+
+.user-profile-normal{
+  font-size: 14pt;
+}
+</style>
+

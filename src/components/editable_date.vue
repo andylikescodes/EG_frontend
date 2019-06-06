@@ -15,7 +15,7 @@
               <v-btn icon @click.prevent.stop="clicked_complete_edit"> <v-icon>fa-check</v-icon></v-btn>
           </template>
         </v-text-field>
-    <p v-else >
+    <p v-else :style=style>
       {{prefix}}： {{value}} <v-icon @click="start_edit" right v-if="!editable">fa-edit</v-icon>
     </p>
   </div>
@@ -38,7 +38,6 @@
       pass_in_class:{
         type: Object,
         default: function () {return {
-          "title": true
         }}
       },
       rows: {

@@ -37,7 +37,6 @@
       pass_in_class:{
         type: Object,
         default: function () {return {
-          "title": true
         }}
       },
       rows: {

@@ -16,6 +16,13 @@ if (workbox) {
     );
 
     workbox.routing.registerRoute(
+      new RegExp('\.(?:ttf|otf)$'),
+      workbox.strategies.staleWhileRevalidate({
+        cacheName: 'font_cache'
+      })
+    );
+
+    workbox.routing.registerRoute(
       new RegExp('\.mp3'),
       workbox.strategies.staleWhileRevalidate({
         cacheName: 'music_cache'

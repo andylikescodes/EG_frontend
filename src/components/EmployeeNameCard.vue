@@ -11,10 +11,10 @@
       </v-flex>
       <v-flex xs12 md8>
           <v-card-title primary-title>
-            <div>
-              <div class="headline">{{member.username}}</div>
-              <div class="subheading"> 人气: {{member.popularity}}</div>
-              <div class="subheading font-italic">{{member.description}}</div>
+            <div >
+              <div class="namecard-title">{{member.username}}</div>
+              <div class="subheading namecard-popularity"> 人气: {{member.popularity}}</div>
+              <div class="subheading namecard-text">{{member.description}}</div>
             </div>
           </v-card-title>
         </v-flex>
@@ -124,5 +124,15 @@
     }
   }
 </script>
-<style>
+<style scoped>
+.namecard-text {
+  font-family: Pianpian5;
+}
+.namecard-popularity{
+  font-family: Shouzha7
+}
+.namecard-title{
+  font-size: 24pt;
+  font-family: Aliyahei
+}
 </style>

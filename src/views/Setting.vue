@@ -5,15 +5,15 @@
       <v-card>
 
         <v-list two-line subheader>
-          <v-subheader>外观</v-subheader>
+          <v-subheader class="setting-text">外观</v-subheader>
             <v-list-tile @click="">
             <v-list-tile-action>
               <v-switch  :value="backlit_value" @change="illumination_switched"></v-switch>
             </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title>炫彩灯</v-list-tile-title>
-              <v-list-tile-sub-title>打开/关闭标题栏下的背光灯特效</v-list-tile-sub-title>
+              <v-list-tile-title class="setting-text">炫彩灯</v-list-tile-title>
+              <v-list-tile-sub-title class="setting-text">打开/关闭标题栏下的背光灯特效</v-list-tile-sub-title>
             </v-list-tile-content>
 
           </v-list-tile>
@@ -23,13 +23,13 @@
             <template v-slot:activator>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title>主题</v-list-tile-title>
+                  <v-list-tile-title class="setting-text">主题</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </template>
 
             <v-radio-group :value="theme_name" @change="theme_changed">
-            <v-list-tile v-for="(theme, index) in theme_configs">
+            <v-list-tile v-for="(theme, index) in theme_configs" :key="index">
               <v-list-tile-content >
 
                 <v-list-tile-action>
@@ -57,7 +57,7 @@
           subheader
           two-line
         >
-          <v-subheader>其他</v-subheader>
+          <v-subheader class="setting-text">其他</v-subheader>
 
           <v-list-tile @click="">
             <v-list-tile-action>
@@ -65,41 +65,8 @@
             </v-list-tile-action>
 
             <v-list-tile-content @click="notifications = !notifications">
-              <v-list-tile-title>Notifications</v-list-tile-title>
-              <v-list-tile-sub-title>Allow notifications</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-list-tile @click="">
-            <v-list-tile-action>
-              <v-checkbox :color="theme.main_color" v-model="sound"></v-checkbox>
-            </v-list-tile-action>
-
-            <v-list-tile-content @click="sound = !sound">
-              <v-list-tile-title>Sound</v-list-tile-title>
-              <v-list-tile-sub-title>Hangouts message</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-list-tile @click="">
-            <v-list-tile-action>
-              <v-checkbox :color="theme.main_color" v-model="video"></v-checkbox>
-            </v-list-tile-action>
-
-            <v-list-tile-content @click="video = !video">
-              <v-list-tile-title>Video sounds</v-list-tile-title>
-              <v-list-tile-sub-title>Hangouts video call</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-list-tile @click="">
-            <v-list-tile-action>
-              <v-checkbox :color="theme.main_color" v-model="invites"></v-checkbox>
-            </v-list-tile-action>
-
-            <v-list-tile-content @click="invites = !invites">
-              <v-list-tile-title>Invites</v-list-tile-title>
-              <v-list-tile-sub-title>Notify when receiving invites</v-list-tile-sub-title>
+              <v-list-tile-title class="setting-text">通知</v-list-tile-title>
+              <v-list-tile-sub-title class="setting-text">勾选后同意应用推送通知给您。</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -152,3 +119,10 @@
     }
   }
 </script>
+
+<style>
+.setting-text{
+  font-family: Shouzha7
+}
+</style>
+

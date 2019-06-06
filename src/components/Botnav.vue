@@ -9,22 +9,22 @@
      app
    >
      <v-btn @click="$router.push('/home')">
-       <span>主页</span>
+       <span class="default-font">主页</span>
        <v-icon>fa-home</v-icon>
      </v-btn>
 
      <v-btn @click="$router.push('/profile')">
-       <span>用户</span>
+       <span class="default-font">用户</span>
        <v-icon>fa-user</v-icon>
      </v-btn>
 
      <v-btn  @click="$router.push('/rankingchart')">
-       <span>预约</span>
+       <span class="default-font">预约</span>
        <v-icon>fa-address-book</v-icon>
      </v-btn>
 
      <v-btn @click="$router.push('/setting')">
-       <span>设置</span>
+       <span class="default-font">设置</span>
        <v-icon>fa-cog</v-icon>
      </v-btn>
    </v-bottom-nav>

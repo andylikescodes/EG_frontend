@@ -52,5 +52,12 @@ export default {
 <style>
 @import './styles/themes.css';
 @import './styles/animations.css';
+@import './styles/fonts.css';
 
+.default-font{
+  font-family: Shouzha7;
+}
+.secondary-font{
+  font-family: Pianpian3;
+}
 </style>

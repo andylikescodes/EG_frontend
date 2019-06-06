@@ -1,6 +1,6 @@
 <template>
-<div>
-    <span >{{color_name}}&nbsp&nbsp&nbsp</span>    <span :style="{'background-color':color}">  &nbsp&nbsp&nbsp&nbsp&nbsp </span>
+<div >
+    <span class="setting-text">{{color_name}}&nbsp&nbsp&nbsp</span>    <span :style="{'background-color':color}">  &nbsp&nbsp&nbsp&nbsp&nbsp </span>
 </div>
 </template>
 <script>

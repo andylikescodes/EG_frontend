@@ -2,8 +2,8 @@
   <v-toolbar app :class="{'backlit':backlit}"  id="toolbar">
     <v-toolbar-side-icon @click.stop="side_icon_clicked"></v-toolbar-side-icon>
     <v-toolbar-title class="headline text-uppercase">
-      <span>EternalGarden</span>
-      <span class="font-weight-light">Club</span>
+      <span class="default-font">EternalGarden</span>
+      <span class="secondary-font grey--text text--darken-1">Club</span>
     </v-toolbar-title>
     <v-btn icon @click="music_clicked"><v-icon>music_note</v-icon></v-btn>
     <v-spacer></v-spacer>
@@ -12,7 +12,7 @@
       @click.stop="right_btn_clicked"
       target="_blank"
     >
-      <span class="mr-2">{{right_btn_text}}</span>
+      <span  class="mr-2 default-font">{{right_btn_text}}</span>
     </v-btn>
   </v-toolbar>
 </template>
@@ -66,4 +66,6 @@ import { EventBus } from '../utils/event-bus.js';
 /*theme red: #FF6666;
   theme yellow: #FFc107
 */
+
+
 </style>

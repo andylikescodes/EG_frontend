@@ -17,7 +17,7 @@
             <img v-else :src=avatar_source alt="avatar">
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>{{avatar_text}}</v-list-tile-title>
+            <v-list-tile-title class="default-font">{{avatar_text}}</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
             <v-btn
@@ -38,7 +38,7 @@
             <v-icon>fa-home</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>主页</v-list-tile-title>
+            <v-list-tile-title class="default-font">主页</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile @click.stop="click_gift">
@@ -46,7 +46,7 @@
             <v-icon>fa-gift</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>礼品中心</v-list-tile-title>
+            <v-list-tile-title class="default-font">礼品中心</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile @click.stop="click_ranking">
@@ -54,7 +54,7 @@
             <v-icon>fa-address-book</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>大家的名片</v-list-tile-title>
+            <v-list-tile-title class="default-font">名片</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -64,7 +64,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>关于</v-list-tile-title>
+            <v-list-tile-title class="default-font">关于</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -74,7 +74,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>帮助</v-list-tile-title>
+            <v-list-tile-title class="default-font">帮助</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -84,7 +84,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>设置</v-list-tile-title>
+            <v-list-tile-title class="default-font">设置</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -94,7 +94,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>分享</v-list-tile-title>
+            <v-list-tile-title class="default-font">分享</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -105,7 +105,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>用户管理 （仅对你可见）</v-list-tile-title>
+            <v-list-tile-title class="default-font">用户管理 （仅对你可见）</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if="user_profile.groupid == 5" @click.stop="click_admin">
@@ -115,7 +115,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>究极牛逼管理 （仅对你可见）</v-list-tile-title>
+            <v-list-tile-title class="default-font">究极牛逼管理 （仅对你可见）</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
