@@ -152,11 +152,11 @@ export default {
 </script>
 <style>
 .user-profile-big{
-  font-size: 24pt;
+  font-size: 3em;
 }
 
 .user-profile-normal{
-  font-size: 14pt;
+  font-size: 1.5em;
 }
 </style>
 

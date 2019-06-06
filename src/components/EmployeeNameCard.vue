@@ -14,7 +14,7 @@
             <div >
               <div class="namecard-title">{{member.username}}</div>
               <div class="subheading namecard-popularity"> 人气: {{member.popularity}}</div>
-              <div class="subheading namecard-text">{{member.description}}</div>
+              <div class="subheading namecard-text grey--text text--darken-1">{{member.description}}</div>
             </div>
           </v-card-title>
         </v-flex>
@@ -132,7 +132,7 @@
   font-family: Shouzha7
 }
 .namecard-title{
-  font-size: 24pt;
+  font-size: 2.5em;
   font-family: Aliyahei
 }
 </style>

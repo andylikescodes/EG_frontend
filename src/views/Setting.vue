@@ -59,7 +59,7 @@
         >
           <v-subheader class="setting-text">其他</v-subheader>
 
-          <v-list-tile @click="">
+          <v-list-tile>
             <v-list-tile-action>
               <v-checkbox :color="theme.main_color" v-model="notifications"></v-checkbox>
             </v-list-tile-action>
