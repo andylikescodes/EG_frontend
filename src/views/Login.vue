@@ -8,7 +8,6 @@
           </div>
         </v-card-title>
         <v-divider></v-divider>
-        </v-card-title>
         <v-form @submit.stop.prevent="click_login">
           <v-container>
             <v-layout row class="px-2">

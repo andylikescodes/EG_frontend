@@ -9,24 +9,31 @@
      app
    >
      <v-btn @click="$router.push('/home')">
-       <span class="default-font">主页</span>
+       <span class="default-font">大厅</span>
        <v-icon>fa-home</v-icon>
      </v-btn>
 
-     <v-btn @click="$router.push('/profile')">
-       <span class="default-font">用户</span>
-       <v-icon>fa-user</v-icon>
-     </v-btn>
+     
 
      <v-btn  @click="$router.push('/rankingchart')">
-       <span class="default-font">预约</span>
+       <span class="default-font">名牌</span>
        <v-icon>fa-address-book</v-icon>
      </v-btn>
+     
+     <v-btn @click="$router.push('/posts')">
+       <span class="default-font">吧台</span>
+       <v-icon>fa-user-friends</v-icon>
+     </v-btn>
 
-     <v-btn @click="$router.push('/setting')">
+     <v-btn @click="$router.push('/profile')">
+       <span class="default-font">自己</span>
+       <v-icon>fa-user</v-icon>
+     </v-btn>
+     
+     <!-- <v-btn @click="$router.push('/setting')">
        <span class="default-font">设置</span>
        <v-icon>fa-cog</v-icon>
-     </v-btn>
+     </v-btn> -->
    </v-bottom-nav>
 </template>
 <script>
@@ -47,13 +54,13 @@
         this.bottomNav = 0
         break;
         case "/profile":
-        this.bottomNav = 1
+        this.bottomNav = 3
         break;
         case '/rankingchart':
-        this.bottomNav = 2
+        this.bottomNav = 1
         break;
-        case "/setting":
-        this.bottomNav = 3
+        case "/posts":
+        this.bottomNav = 2
         break;
         default:
         this.bottomNav = void(0)

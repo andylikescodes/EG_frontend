@@ -1,5 +1,26 @@
 <template>
   <div>
-    <h1>This is HELP page</h1>
+    <HelloWorld />
   </div>
+  <!-- <div v-else>
+    <Login></Login>
+  </div> -->
+
 </template>
+
+<script>
+  import HelloWorld from '../components/HelloWorld'
+  import {mapGetters} from 'vuex'
+  export default {
+    mounted(){
+    },
+    computed:{
+      ...mapGetters({
+        logged_in: "logged_in"
+      }),
+    },
+    components: {
+      HelloWorld
+    }
+  }
+</script>

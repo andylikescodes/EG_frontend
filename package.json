@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
+    "material-design-icons-iconfont": "^5.0.1",
     "register-service-worker": "^1.6.2",
     "url-loader": "^2.0.0",
     "vue": "^2.6.10",
@@ -19,6 +20,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@mdi/font": "^3.6.95",
     "@vue/cli-plugin-babel": "^3.6.0",
     "@vue/cli-plugin-eslint": "^3.6.0",
     "@vue/cli-plugin-pwa": "^3.6.0",

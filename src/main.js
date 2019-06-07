@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import Axios from 'axios'
+
 import { EventBus } from './utils/event-bus.js';
 Vue.prototype.$http = Axios;
 Vue.config.productionTip = false
