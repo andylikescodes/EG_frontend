@@ -36,7 +36,7 @@
 
         </v-toolbar>
           <div class="secondary-font pa-2">
-            <v-textarea solo>
+            <v-textarea solo v-model="post_content">
 
             </v-textarea>
             
@@ -48,15 +48,16 @@
               :height="200"
               placeholder="点击这里上传"
               :placeholder-font-size="19"
+              v-model="img"
               ></croppa>
             </div>
           </v-layout>
           <div class="default-font">
             <v-list-tile>
-            <v-btn color="green lighten-2">
+            <v-btn color="green lighten-2" @click="submit">
               发表
             </v-btn>
-            <v-btn color="yellow darken-2">
+            <v-btn color="yellow darken-2" @click="reset">
              重置
             </v-btn>
 
@@ -81,10 +82,14 @@
 <script>
   import Post from '../components/social/Post'
   import {mapGetters} from 'vuex'
+  import { EventBus } from '../utils/event-bus';
+  import {server_ip, axios_config} from "../configs/web_configs"
   export default {
     data: () => ({
       step: 1,
       show_croppa : false,
+      post_img: '',
+      post_content: '',
       //
     }),
     mounted(){
@@ -106,6 +111,39 @@
         this.$nextTick(function (){
           this.$refs.post_croppa_object.chooseFile()
         })
+      },
+      submit(){
+        //console.log(this.$refs.post_croppa_object.hasImage())
+        if (!this.post_content){
+          EventBus.$emit("danger_alert", "请先输入内容！")
+          return
+        }
+
+        var post = {}
+        post.content = this.post_content
+        post.image = ''
+        if (this.show_croppa && this.$refs.post_croppa_object.hasImage()){
+          post.image = this.$refs.post_croppa_object.generateDataUrl()
+        }
+        post.likes = []
+        post.replies = []
+        this.$http.post(server_ip+"/social_posts/post", axios_config).then(res=>{
+          if (res.data == "success"){
+            EventBus.$emit("success_alert", "发表成功！")
+          }
+          else{
+            EventBus.$emit("danger_alert", "发表失败！")
+          }
+        }).catch((err)=>{
+          console.log (err)
+          EventBus.$emit("danger_alert", "发表失败！")
+        })
+      },
+      reset(){
+        if(this.show_croppa){
+          this.$refs.post_croppa_object.remove()
+        }
+        this.post_content = ''
       }
     }
   }
