@@ -6,7 +6,7 @@
 
         <v-list two-line subheader>
           <v-subheader class="setting-text">外观</v-subheader>
-            <v-list-tile @click="">
+            <v-list-tile>
             <v-list-tile-action>
               <v-switch  :value="backlit_value" @change="illumination_switched"></v-switch>
             </v-list-tile-action>

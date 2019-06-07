@@ -88,6 +88,11 @@ export default new Router({
       path:"/admin",
       name:"admin",
       component: () => import ("./views/Admin.vue")
+    },
+    {
+      path:"/message",
+      name:"message",
+      component: () => import ("./views/Message.vue")
     }
   ]
 })
