@@ -58,6 +58,15 @@
           </v-list-tile-content>
         </v-list-tile>
 
+        <v-list-tile @click.stop="click_post">
+          <v-list-tile-action>
+            <v-icon>fa-user-friends</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="default-font">吧台</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
         <v-list-tile @click.stop="click_about">
           <v-list-tile-action>
             <v-icon>fa-info-circle</v-icon>
@@ -191,6 +200,10 @@ export default {
     },
     click_gift: function(){
       this.$router.push('/gift')
+      this.reset_drawer()
+    },
+    click_post: function(){
+      this.$router.push('/posts')
       this.reset_drawer()
     },
     click_avatar:function(){
