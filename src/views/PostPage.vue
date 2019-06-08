@@ -16,10 +16,9 @@
           >
             <v-icon>add</v-icon>
           </v-btn>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+        <div>
+          <Post v-for="(post, index) in posts" :post="post" :key="index" @refresh="refresh(index, $event)"/>
+        </div>
         </div>
       </v-window-item>
 
@@ -90,13 +89,15 @@
       show_croppa : false,
       post_img: '',
       post_content: '',
+      posts : []
       //
     }),
     mounted(){
+      this.refresh_posts()
     },
     computed:{
       ...mapGetters({
-        logged_in: "logged_in"
+        user_profile: "user_profile"
       }),
     },
     components: {
@@ -130,6 +131,8 @@
         this.$http.post(server_ip+"/social_posts/post",post, axios_config).then(res=>{
           if (res.data == "success"){
             EventBus.$emit("success_alert", "发表成功！")
+            this.step = 1
+            this.refresh_posts()
           }
           else{
             EventBus.$emit("danger_alert", "发表失败！")
@@ -144,6 +147,29 @@
           this.$refs.post_croppa_object.remove()
         }
         this.post_content = ''
+      },
+      refresh(idx, e){
+        //console.log(this.posts[idx].likes)
+
+        if (e=="like"){
+          this.posts[idx].likes.push(this.user_profile._id)
+        }
+        else if (e=="dislike") {
+          var index = this.posts[idx].likes.indexOf(this.user_profile._id)
+          this.posts[idx].likes.splice(index,1)
+        }
+        else if (e == "reply"){
+          this.refresh_posts()
+        }
+      },
+      refresh_posts(){
+        this.$http.get(server_ip+'/social_posts/list',{...axios_config, params: {
+        start_idx: 0,
+        end_idx: 10
+      }}).then(res=>{
+        //console.log(res.data)
+        this.posts = res.data
+      })
       }
     }
   }
