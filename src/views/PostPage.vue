@@ -133,6 +133,7 @@
             EventBus.$emit("success_alert", "发表成功！")
             this.step = 1
             this.refresh_posts()
+            this.reset()
           }
           else{
             EventBus.$emit("danger_alert", "发表失败！")
