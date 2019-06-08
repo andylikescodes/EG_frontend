@@ -1,6 +1,6 @@
 <template>
   
-    <v-window v-model="step">
+    <v-window v-model="step" :touch="window_touch_handler">
       <v-window-item :value="1">
         <div>
           <v-btn
@@ -19,6 +19,7 @@
         <div>
           <Post v-for="(post, index) in posts" :post="post" :key="index" @refresh="refresh(index, $event)"/>
         </div>
+        <infinite-loading @infinite="infiniteHandler" v-if="!disable_infinite" :infinite-scroll-disabled="disable_infinite"></infinite-loading>
         </div>
       </v-window-item>
 
@@ -89,7 +90,10 @@
       show_croppa : false,
       post_img: '',
       post_content: '',
-      posts : []
+      posts : [],
+      final_idx : 0,
+      disable_infinite: true,
+      
       //
     }),
     mounted(){
@@ -99,11 +103,23 @@
       ...mapGetters({
         user_profile: "user_profile"
       }),
-    },
+      window_touch_handler(){
+        return {
+        left: this.left_slide,
+        right: this.right_slide
+      }
+    }
+      } ,
     components: {
       Post
     },
     methods:{
+      left_slide(){
+        if (this.step==1) this.step=2
+      },
+      right_slide(){
+        if(this.step ==2) this.step=1
+      },
       post_new(){
         this.step=2
       },
@@ -170,8 +186,25 @@
       }}).then(res=>{
         //console.log(res.data)
         this.posts = res.data
+        this.final_idx = this.posts.length
+        this.disable_infinite=false//only after first time data is loaded, then enable infinite loading to avoid undesired loading behavior
       })
-      }
+      },
+      infiniteHandler($state) {
+        console.log("加载中")
+      this.$http.get(server_ip+'/social_posts/list',{...axios_config, params: {
+        start_idx: this.final_idx,
+        end_idx: this.final_idx+5
+      }}).then(({ data }) => {
+        if (data.length) {
+          this.final_idx += data.length;
+          this.posts.push(...data);
+          $state.loaded();
+        } else {
+          $state.complete();
+        }
+      });
+    },
     }
   }
 </script>
