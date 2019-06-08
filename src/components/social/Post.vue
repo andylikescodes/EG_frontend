@@ -33,7 +33,7 @@
           justify-end
         >
           <v-btn @click.stop="click_like" flat icon :color="liked ? 'red lighten-3' : 'grey darken-1'">
-          <v-icon class="mr-1">mdi-heart</v-icon>
+          <v-icon class="mr-1">fa-heart</v-icon>
           </v-btn>
           <span class="subheading mr-2">{{post.likes.length}}</span>
           <span class="mr-1">·</span>
