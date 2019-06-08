@@ -127,7 +127,7 @@
         }
         post.likes = []
         post.replies = []
-        this.$http.post(server_ip+"/social_posts/post", axios_config).then(res=>{
+        this.$http.post(server_ip+"/social_posts/post",post, axios_config).then(res=>{
           if (res.data == "success"){
             EventBus.$emit("success_alert", "发表成功！")
           }
