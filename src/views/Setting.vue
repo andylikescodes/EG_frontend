@@ -59,15 +59,23 @@
         >
           <v-subheader class="setting-text">其他</v-subheader>
 
-          <v-list-tile>
+          <v-list-tile @click="notifications = !notifications">
             <v-list-tile-action>
               <v-checkbox :color="theme.main_color" v-model="notifications"></v-checkbox>
             </v-list-tile-action>
 
-            <v-list-tile-content @click="notifications = !notifications">
+            <v-list-tile-content >
               <v-list-tile-title class="setting-text">通知</v-list-tile-title>
               <v-list-tile-sub-title class="setting-text">勾选后同意应用推送通知给您。</v-list-tile-sub-title>
             </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile @click="reload_app">
+
+            <v-list-tile-action >
+              <v-list-tile-title class="setting-text">重载应用</v-list-tile-title>
+              <v-list-tile-sub-title class="setting-text">该操作会自动寻找最新版本并更新。</v-list-tile-sub-title>
+            </v-list-tile-action>
           </v-list-tile>
         </v-list>
       </v-card>
@@ -115,6 +123,9 @@
       illumination_switched: function(val){
         //console.log(val)
         this.$store.commit("switch_backlit", val)
+      },
+      reload_app(){
+        window.location.reload(true)
       }
     }
   }
