@@ -15,6 +15,22 @@
       </v-flex>
 
     </v-layout>
+    <v-layout v-if="show_user_list">
+      <v-flex xs12 sm6 offset-sm1 mx-3>
+      <!-- put user lists here -->
+      <v-card>
+        <v-list style="max-height: 200px" class="scroll-y">
+          <v-list-tile @click.stop="update_input_username(user)" v-for="user in possible_user_list" :key="user.username">
+            <v-list-tile-content>
+              <v-list-tile-title>
+                {{user.username}}
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-card>
+      </v-flex>
+    </v-layout>
     <v-layout>
     <v-flex xs12 md6 offset-md1>
     <div class="ma-4" v-if="show_userinfo" >
@@ -94,6 +110,18 @@ import BalanceActivities from './BalanceActivities'
     mounted(){
     },
     watch:{
+      input_username(val){
+        if(val){
+          this.show_user_list = true
+          this.$http.get(server_ip+"/customer_service/possible_users", {...axios_config, params:{user_contains:this.input_username}}).then(res=>{
+            //console.log(res.data)
+            this.possible_user_list = res.data
+          })
+        }
+        else{
+          this.show_user_list=false
+        }
+      }
     },
     computed:{
     },
@@ -108,7 +136,8 @@ import BalanceActivities from './BalanceActivities'
         //rules: {number: value => {console.log(this.incremental_balance_ammount);console.log(!isNaN(value)); return !isNaN(value) || '必须是数字'}},
         incremental_balance_ammount: 0,
         loading: false,
-
+        show_user_list : false,
+        possible_user_list : []
       }
     },
     methods:{
@@ -135,6 +164,9 @@ import BalanceActivities from './BalanceActivities'
 
           
         })
+      },
+      update_input_username(user){
+        this.input_username = user.username
       },
       click_submit_balance_change(){
         if (!this.incremental_balance_ammount){

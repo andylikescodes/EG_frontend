@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import './plugins/vuetify'
 import './plugins/vue-croppa'
+import './plugins/ckeditor'
 import './plugins/vue-infinite-loading'
 import App from './App.vue'
 import router from './router'

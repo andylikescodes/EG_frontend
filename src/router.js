@@ -93,6 +93,11 @@ export default new Router({
       path:"/posts",
       name:"posts",
       component: () => import ("./views/PostPage.vue")
+    },
+    {
+      path:"/edit",
+      name:"edit",
+      component: () => import ("./views/Edit.vue")
     }
   ]
 })
