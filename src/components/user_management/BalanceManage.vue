@@ -167,6 +167,7 @@ import BalanceActivities from './BalanceActivities'
       },
       update_input_username(user){
         this.input_username = user.username
+        this.click_username_input()
       },
       click_submit_balance_change(){
         if (!this.incremental_balance_ammount){
