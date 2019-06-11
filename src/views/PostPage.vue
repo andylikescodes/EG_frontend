@@ -93,6 +93,7 @@
       posts : [],
       final_idx : 0,
       disable_infinite: true,
+      loading: false
       
       //
     }),
@@ -167,7 +168,6 @@
       },
       refresh(idx, e){
         //console.log(this.posts[idx].likes)
-
         if (e=="like"){
           this.posts[idx].likes.push(this.user_profile._id)
         }
@@ -180,6 +180,10 @@
         }
       },
       refresh_posts(){
+        if (this.loading) return
+        this.loading = true
+        EventBus.$emit("loading")
+        
         this.$http.get(server_ip+'/social_posts/list',{...axios_config, params: {
         start_idx: 0,
         end_idx: 10
@@ -188,10 +192,16 @@
         this.posts = res.data
         this.final_idx = this.posts.length
         this.disable_infinite=false//only after first time data is loaded, then enable infinite loading to avoid undesired loading behavior
+        this.loading = false
+        EventBus.$emit("not_loading")
       })
       },
       infiniteHandler($state) {
-        console.log("加载中")
+        //console.log("加载中")+
+        if (this.loading) return
+        this.loading = true
+        EventBus.$emit("loading")
+        
       this.$http.get(server_ip+'/social_posts/list',{...axios_config, params: {
         start_idx: this.final_idx,
         end_idx: this.final_idx+5
@@ -200,8 +210,12 @@
           this.final_idx += data.length;
           this.posts.push(...data);
           $state.loaded();
+          this.loading = false
+          EventBus.$emit("not_loading")
         } else {
           $state.complete();
+          this.loading = false
+          EventBus.$emit("not_loading")
         }
       });
     },
