@@ -66,7 +66,6 @@
 import {mapGetters} from 'vuex'
 import {EventBus} from "../utils/event-bus"
 import {server_ip, axios_config} from "../configs/web_configs"
-import {default_avatar} from "../assets/images.js"
 import Editable from "../components/editable_text.vue"
 import EditableDate from "../components/editable_date.vue"
 import ImageUpload from "../components/ImageUpload.vue"
@@ -103,11 +102,14 @@ export default {
       user_profile: "user_profile"
     }),
     avatar_path(){
-      //console.log(this.temp_user_profile.avatar_path)
-      if (this.temp_user_profile.avatar_path)
-      return this.temp_user_profile.avatar_path
+      
+      if (this.temp_user_profile.avatar_path && this.temp_user_profile.avatar_path!='null'){
+        //console.log("here", this.temp_user_profile.avatar_path)
+        return server_ip+this.temp_user_profile.avatar_path
+        }
       else {
-        return default_avatar
+        //console.log("avatar here",this.temp_user_profile.avatar_path)
+        return server_ip + '/img/avatars/default.png'
       }
     }
   },
@@ -135,11 +137,16 @@ export default {
       // delete unchanged attributes to save bandwidth (otherwise, every update request will submit unchanged avatar images)
       //post the shorten version of the object, but commit the whole object to local store
       this.$http.post(server_ip+"/user/update", temp_object, axios_config).then(res=>{
-        if (res.data == "success"){
-          this.$store.commit("update_user_profile", this.temp_user_profile)
-          this.temp_user_profile = {}
-          this.temp_user_profile = Object.assign(this.temp_user_profile, this.user_profile) //detach the two objects
-          EventBus.$emit("success_alert","更改成功！")
+        if (res.data){
+          //console.log("update success, receive: "+res.data)
+          this.$store.commit("update_user_profile", res.data)
+          //this.temp_user_profile = {}
+          this.temp_user_profile = Object.assign(this.temp_user_profile, res.data) //detach the two objects
+          //console.log(this.temp_user_profile)
+          //console.log(res.data)
+          EventBus.$emit("success_alert","更改成功！请手动刷新！")
+          window.location.reload(true)
+          //window.location.reload()
         }
         else console.log(res.data)
       }).catch(err=>{

@@ -97,7 +97,8 @@
     props: ["bg_color", "member"],
     methods:{
       compute_path(path){
-        return path
+
+        return server_ip+path
       },
       message(){
         EventBus.$emit("danger_alert","该功能尚未开通")

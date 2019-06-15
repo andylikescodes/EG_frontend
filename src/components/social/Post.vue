@@ -14,13 +14,15 @@
                     :src="post.image"
                     height="40vh"
                     contain
+                    @click.stop="image_clicked()"
                   ></v-img>
     <v-card-actions>
       <v-list-tile class="grow">
         <v-list-tile-avatar color="grey darken-3">
             <v-img
                 class="elevation-6"
-                :src="post.author.avatar_path"
+                :src="compute_path(post.author.avatar_path)"
+                
             ></v-img>
         </v-list-tile-avatar>
 
@@ -65,6 +67,9 @@
       
     </v-dialog>
   </v-layout>
+  <ImageBrowser v-model="show_img" :img_src="post.image">
+
+  </ImageBrowser>
   </div>
 </template>
 
@@ -74,10 +79,12 @@
   import { EventBus } from '../../utils/event-bus';
   import {format_time} from "../../utils/time"
   import Reply from './Reply'
+  import ImageBrowser from "../ImageBrowser"
   export default {
     data: () => ({
         dialog:false,
         target : "",
+        show_img: false
       //
     }),
     props: ["post"],
@@ -107,6 +114,11 @@
                 }
             })
         },
+        compute_path(path){
+          if (path) return server_ip+path
+          else return server_ip+'/img/avatars/default.png'
+        
+      },
         click_reply(reply){
             //console.log(reply)
             console.log(reply)
@@ -116,6 +128,9 @@
             })
             
         },
+        image_clicked(source){
+        this.show_img=true
+      },
         refresh(){
           this.$emit("refresh", "reply")
         }
@@ -168,12 +183,14 @@
             return false
         }
       },
+      
       post_time(){
         return format_time(this.post.createdAt)
       }
     },
     components: {
-        Reply
+        Reply,
+        ImageBrowser
     }
   }
 </script>
