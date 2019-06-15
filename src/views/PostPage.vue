@@ -1,5 +1,5 @@
 <template>
-  
+  <div>
     <v-window v-model="step" :touch="window_touch_handler">
       <v-window-item :value="1">
         <div>
@@ -72,11 +72,66 @@
       </v-window-item>
     
     </v-window>
-  
+
   <!-- <div v-else>
     <Login></Login>
   </div> -->
+  <v-layout row justify-center>
+    <v-dialog v-model="post_window" fullscreen hide-overlay transition="dialog-bottom-transition">
+
+      <v-card fill-height class="default-font">
+        <v-toolbar  :color="theme.main_color">
+          <v-btn icon @click="close_post_window">
+            <v-icon>close</v-icon>
+          </v-btn>
+          
+          <v-toolbar-title>
+              发新帖
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+       
+          <div class="secondary-font pa-2">
+            <v-textarea solo v-model="post_content">
+
+            </v-textarea>
+            
+          </div>
+          <v-layout justify-center v-if="show_croppa">
+            <div class="default-font mx-3">
+              <croppa ref="post_croppa_object"
+              canvas-color="silver"
+              :height="200"
+              placeholder="点击这里上传"
+              :placeholder-font-size="19"
+              v-model="img"
+              ></croppa>
+            </div>
+          </v-layout>
+          <div class="default-font">
+            <v-list-tile>
+            <v-btn color="green lighten-2" @click="submit">
+              发表
+            </v-btn>
+            <v-btn color="yellow darken-2" @click="reset">
+             重置
+            </v-btn>
+
+              <v-layout justify-end>
+                <v-btn large icon @click.prevent="clicked_image">
+                  <v-icon>fa-image</v-icon>
+                </v-btn>
+              </v-layout>
+            
+            </v-list-tile>
+            
+          </div>
+        </v-card>
+
+    </v-dialog>
+  </v-layout>
   
+  </div>
 </template>
 
 <script>
@@ -93,7 +148,8 @@
       posts : [],
       final_idx : 0,
       disable_infinite: true,
-      loading: false
+      loading: false,
+      post_window : false
       
       //
     }),
@@ -102,7 +158,8 @@
     },
     computed:{
       ...mapGetters({
-        user_profile: "user_profile"
+        user_profile: "user_profile",
+         theme: "theme"
       }),
       window_touch_handler(){
         return {
@@ -122,7 +179,11 @@
         if(this.step ==2) this.step=1
       },
       post_new(){
-        this.step=2
+        //this.step=2
+        this.post_window=true
+      },
+      close_post_window(){
+        this.post_window=false
       },
       clicked_image(){
         this.show_croppa=true
@@ -148,7 +209,7 @@
         this.$http.post(server_ip+"/social_posts/post",post, axios_config).then(res=>{
           if (res.data == "success"){
             EventBus.$emit("success_alert", "发表成功！")
-            this.step = 1
+            this.close_post_window()
             this.refresh_posts()
             this.reset()
           }
