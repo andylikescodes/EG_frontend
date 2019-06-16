@@ -32,14 +32,17 @@ Axios.interceptors.response.use(response => {
   if (error.response.status === 401) {
    //handle 401 unauthorized request
    EventBus.$emit('danger_alert',"你尚未登录或登录已过期，请重新登录!")
+   EventBus.$emit("not_loading","")
    router.push('/login')
   }
 	else if (error.response.status === 402){
-		EventBus.$emit('danger_alert',"请充值！")
+    EventBus.$emit('danger_alert',"请充值！")
+    EventBus.$emit("not_loading","")
 		return Promise.reject(error.response)
 	}
 	else if (error.response.status === 400){
-		EventBus.$emit('danger_alert',"系统出错！")
+    EventBus.$emit('danger_alert',"系统出错！")
+    EventBus.$emit("not_loading","")
 		return Promise.reject(error.response)
 	}
   return error;
