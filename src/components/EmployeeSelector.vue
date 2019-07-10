@@ -1,9 +1,10 @@
 <template>
   <v-card
     class="mb-5"
+    
   >
-
-  <v-list two-line>
+  <div style="height:60vh;overflow: auto">
+  <v-list two-line >
     <v-divider></v-divider>
    <div  v-for="(employee, key) in employees" :key="key">
      <v-list-tile avatar :class="employee_list_classes[key]" @click="select_employee(key)">
@@ -16,10 +17,11 @@
          <v-list-tile-sub-title>{{employee.description}}</v-list-tile-sub-title>
        </v-list-tile-content>
      </v-list-tile>
-
+    
    </div>
    <v-divider></v-divider>
   </v-list>
+  </div>
   </v-card>
 </template>
 
