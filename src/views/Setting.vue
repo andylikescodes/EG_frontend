@@ -18,7 +18,7 @@
             </v-list-tile-content>
           </v-list-tile>
 
-           <v-list-tile>
+           <v-list-tile v-if="!isIOS()">
             <v-list-tile-action>
               <v-switch  :value="auto_audio_value" @change="auto_audio_switched"></v-switch>
             </v-list-tile-action>
