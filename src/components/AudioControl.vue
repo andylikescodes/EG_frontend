@@ -52,8 +52,9 @@
 <script>
 import { EventBus } from '../utils/event-bus';
 import {server_ip, axios_config} from "../configs/web_configs"
+import {mapGetters} from "vuex"
   export default {
-    mounted(){
+    created(){
       EventBus.$on("call_audio_control", msg=>{
         this.audio_control=true
       })
@@ -63,6 +64,21 @@ import {server_ip, axios_config} from "../configs/web_configs"
       this.audio.addEventListener('timeupdate', this.update);
       this.audio.addEventListener('loadeddata', this.load);
       this.audio.loop = this.loop
+    },
+    mounted(){
+      
+      // this.audio.play().catch(err=>{
+      //   console.log("error in playing")
+      //   console.log(err)
+      // })
+      // if (this.auto_audio){
+      this.audio.autoplay = this.auto_audio
+      //   this.$nextTick(()=>{
+      //     console.log("playing")
+      //     this.audio.play()
+      //   })
+        
+      // }
     },
     data: () => ({
       audio_control: false,
@@ -75,6 +91,9 @@ import {server_ip, axios_config} from "../configs/web_configs"
       repeat_icon_color:"orange"
     }),
     computed:{
+      ...mapGetters(
+        {auto_audio: "auto_audio"}
+      ),
       percentComplete() {
 			return parseInt(this.currentSeconds / this.durationSeconds * 100);
 		}

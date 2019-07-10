@@ -11,6 +11,7 @@ export default new Vuex.Store({
     user_profile: 0,
     settings: {
       backlit: false,
+      auto_audio: false,
       theme: {
         name : "theme-blue",
         alias : "淡定蓝",
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     }
   },
   getters:{
+    auto_audio(state){
+      return state.settings.auto_audio
+    },
     logged_in(state){
       return !!state.logged_in
     },
@@ -33,6 +37,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    set_auto_audio(state, val){
+      state.settings.auto_audio = val
+      //console.log(val)
+    },
     initialiseStore(state) {
 			// initialize VUEX store from localStorage
       console.log('initializing vuex store')
