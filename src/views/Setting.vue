@@ -5,7 +5,7 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
 
-        <v-list two-line subheader>
+        <v-list three-line subheader>
           <v-subheader class="setting-text">外观</v-subheader>
             <v-list-tile>
             <v-list-tile-action>
@@ -16,9 +16,18 @@
               <v-list-tile-title class="setting-text">炫彩灯</v-list-tile-title>
               <v-list-tile-sub-title class="setting-text">打开/关闭标题栏下的背光灯特效</v-list-tile-sub-title>
             </v-list-tile-content>
-
           </v-list-tile>
 
+           <v-list-tile>
+            <v-list-tile-action>
+              <v-switch  :value="auto_audio_value" @change="auto_audio_switched"></v-switch>
+            </v-list-tile-action>
+
+            <v-list-tile-content>
+              <v-list-tile-title class="setting-text">自动播放音乐</v-list-tile-title>
+              <v-list-tile-sub-title class="setting-text">打开后进入应用自动播放音乐(如果您使用浏览器访问，该功能可能被浏览器屏蔽，需许可网站自动播放)</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile> 
            <v-list-group
             no-action>
             <template v-slot:activator>
@@ -156,12 +165,14 @@
       ...mapGetters({
         theme: "theme",
         backlit: "backlit",
-        user_profile: "user_profile"
+        user_profile: "user_profile",
+        auto_audio: "auto_audio"
       })
     },
     mounted(){
       this.theme_name = this.theme.name
       this.backlit_value = this.backlit
+      this.auto_audio_value = this.auto_audio
     },
     data () {
       return {
@@ -174,7 +185,8 @@
         invites: false,
         discord_dialog: false,
         discord_token: "",
-        discord_token_show: false
+        discord_token_show: false,
+        auto_audio_value: false
       }
     },
     methods:{
@@ -186,6 +198,9 @@
             break;
           }
         }
+      },
+      auto_audio_switched(val){
+        this.$store.commit("set_auto_audio", !!val)
       },
       illumination_switched: function(val){
         //console.log(val)
