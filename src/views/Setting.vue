@@ -126,11 +126,13 @@
           <div v-if="user_profile.discordID">
             使用新的账号登陆Discord;
           </div>
-          <div>
+          <div v-if="!isIOS()">
+          <div >
             Discord口令已经自动复制到你的剪切板中，前往我们的<a href="https://discord.gg/93cSDc">Discord频道</a>，找到“EGC BOT”用户，向其私信发送复制的口令即可 （粘贴）
           </div>
+         
           <div>
-            完成后，可点击完成操作按钮，系统会自动为您刷新信息，也可在设置界面中手动刷新用户信息（点击“刷新用户信息”）。
+            完成后，可点击"我已完成"按钮，系统会自动为您刷新信息，也可在设置界面中手动刷新用户信息（点击“刷新用户信息”）。
           </div>
           <div>
             如果自动复制不能成功，请点击<v-btn small flat  color="primary"  @click="manual_copy_discord_token">手动复制</v-btn>
@@ -138,6 +140,18 @@
           <v-textarea rows="3" ref="discord_token_text" solo v-show="discord_token_show" v-model="discord_token">
 
           </v-textarea>
+           </div>
+          <div v-else>
+            <div>请复制如下口令</div>
+            <v-textarea rows="3" solo v-model="discord_token">
+          </v-textarea>
+          <div>
+          前往我们的<a href="https://discord.gg/93cSDc">Discord频道</a>，找到“EGC BOT”用户，向其私信发送复制的口令即可 （粘贴）
+          </div>
+          <div>
+            完成后，可点击"我已完成"按钮，系统会自动为您刷新信息，也可在设置界面中手动刷新用户信息（点击“刷新用户信息”）。
+          </div>
+          </div>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -214,7 +228,10 @@
         //console.log(this.user_profile._id)
         this.$http.get(server_ip+"/user/bind_discord", axios_config).then(res=>{
           this.discord_token = res.data
-          this.copy_discord_token()
+          if (!this.isIOS())
+          {
+            this.copy_discord_token()
+            }
           this.discord_dialog=true
         })
       },
