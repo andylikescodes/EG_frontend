@@ -118,7 +118,7 @@
             使用新的账号登陆Discord;
           </div>
           <div>
-            Discord口令已经自动复制到你的剪切板中，前往我们的<a href="https://discord.gg/93cSDc" target="_blank">Discord频道</a>，找到“EGC BOT”用户，向其私信发送复制的口令即可 （粘贴）
+            Discord口令已经自动复制到你的剪切板中，前往我们的<a href="https://discord.gg/93cSDc">Discord频道</a>，找到“EGC BOT”用户，向其私信发送复制的口令即可 （粘贴）
           </div>
           <div>
             完成后，可点击完成操作按钮，系统会自动为您刷新信息，也可在设置界面中手动刷新用户信息（点击“刷新用户信息”）。
@@ -132,7 +132,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat @click="goto_discord" small>前往Discord</v-btn>
+          <v-btn v-if="!isIOS()" color="green darken-1" flat @click="goto_discord" small>前往Discord</v-btn>
           <v-btn color="green darken-1" flat @click="finish_bind_discord" small>我已完成</v-btn>
           <v-btn color="green darken-1" flat @click="discord_dialog = false" small>取消</v-btn>
         </v-card-actions>
@@ -147,7 +147,7 @@
   import {mapGetters} from 'vuex'
   import {theme_configs} from "../configs/app_configs"
   import {server_ip, axios_config} from "../configs/web_configs"
-  import {copyToClipboard, iosCopyToClipboard} from "../utils/other_utils.js"
+  import {copyToClipboard, iosCopyToClipboard, iOS} from "../utils/other_utils.js"
   import { EventBus } from '../utils/event-bus.js';
   import{get_profile} from "../utils/users"
   export default {
@@ -205,7 +205,13 @@
       },
       goto_discord(){
         //this.discord_dialog = false
-        window.open('https://discord.gg/93cSDc')
+        if (iOS()){
+          this.discord_dialog = false
+        }
+        this.$nextTick(()=>{
+          window.open('https://discord.gg/93cSDc')
+        })
+        
       },
       copy_discord_token(){
         let result = copyToClipboard(this.discord_token)
@@ -217,6 +223,9 @@
         {
           EventBus.$emit("success_alert","已经成功复制Discord口令至剪贴板")
           }
+      },
+      isIOS(){
+        return iOS()
       },
       refresh_user(){
         return get_profile().then(result=>{

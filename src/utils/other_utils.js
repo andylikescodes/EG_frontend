@@ -76,6 +76,26 @@ function copyToClipboard(string) {
     }
     return true;
   }
+
+  function iOS() {
+
+    var iDevices = [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ];
+  
+    if (!!navigator.platform) {
+      while (iDevices.length) {
+        if (navigator.platform === iDevices.pop()){ return true; }
+      }
+    }
+  
+    return false;
+  }
 // function iosCopyToClipboard(el) {
 //     var oldContentEditable = el.contentEditable,
 //         oldReadOnly = el.readOnly,
@@ -108,5 +128,6 @@ function downloadURI(uri, name) {
 export {
     copyToClipboard,
     downloadURI,
+    iOS
     //iosCopyToClipboard
 }
