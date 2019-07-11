@@ -1,6 +1,6 @@
 <template>
   <div>
-<div class="headline ma-3 text-xs-right">
+<div class="ma-3 text-xs-right">
   当前余额：{{balance}}
 </div>
   <v-stepper v-model="e1">
@@ -20,34 +20,9 @@
       <v-stepper-content step="1">
 
 
-        <v-container>
-        <v-layout wrap>
-          <v-flex xs12 md4 v-for="(gift, key) in activated_gifts" ma-3 :key="key">
-          <v-card class="sell_card" @click="card_clicked(key)" :color="sell_card_colors[key]" :ref="'sell_card'+key">
-            <v-img
-          :src="compute_path(gift.figure_path)"
-        >
-        </v-img>
-        <v-divider></v-divider>
-        <v-card-title>
-          <div>
-          <div class="headline">
-          {{  gift.name}}
-          </div>
-          <div class="deep-orange--text text--darken-2">
-            售价：{{gift.price}}
-          </div>
-          </div>
-        </v-card-title>
-        <v-card-text>
-            {{gift.description}}
-          </v-card-text>
-          <v-card-actions>
-          </v-card-actions>
-          </v-card>
-          </v-flex>
-        </v-layout>
-        <v-layout>
+        <GiftSelector :gifts="activated_gifts" 
+        @gift_selected="update_selected_gift"/>
+
         <v-btn
           color="primary"
           @click="gift_selected"
@@ -56,8 +31,7 @@
         </v-btn>
 
         <v-btn flat @click="$router.push('/gift')">取消</v-btn>
-        </v-layout>
-      </v-container>
+
       </v-stepper-content>
 
       <v-stepper-content step="2">
@@ -142,11 +116,13 @@
 
 <script>
 import EmployeeSelector from "../components/EmployeeSelector"
+import GiftSelector from "../components/GiftSelector"
 import {server_ip, axios_config} from "../configs/web_configs"
 import { EventBus } from '../utils/event-bus.js';
 export default {
   components:{
-    EmployeeSelector
+    EmployeeSelector,
+    GiftSelector
   },
     data: () => ({
       e1: 1,
@@ -184,28 +160,14 @@ export default {
         else return ""
       },
       selected_employee_name(){
-        if(this.selected_employee) return this.selected_employee.name
+        //console.log(this.selected_employee)
+        if(this.selected_employee) return this.selected_employee.username
         else return ""
-      },
-      activated_gifts(){
-        return this.gifts.filter((x)=>{
-          return x.activated
-        })
       }
 
     },
     mounted (){
-      this.$http.get(server_ip+"/gift/list", axios_config).then(res=>{
-        this.gifts = res.data
-        let temp_list = []
-        for (let i = 0; i<this.activated_gifts.length; i++){
-          temp_list.push(this.card_original_color)
-        }
-        this.sell_card_colors=temp_list
-        //console.log(this.sell_card_colors)
-      }).catch((err)=>{
-        console.log(err)
-      });
+      
       this.$http.get(server_ip+"/user/balance", axios_config).then(res=>{
         this.balance = res.data.balance
       }).catch(err=>{
@@ -262,6 +224,9 @@ export default {
       },
       update_selected_employee(employee){
         this.selected_employee = employee
+      },
+      update_selected_gift(gift){
+        this.selected_gift = gift
       },
       employee_selected(){
         if (!this.selected_employee){

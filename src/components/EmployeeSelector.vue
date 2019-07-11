@@ -3,7 +3,7 @@
     class="mb-5"
     
   >
-  <div style="height:60vh;overflow: auto">
+  <div style="height:50vh;overflow: auto">
   <v-list two-line >
     <v-divider></v-divider>
    <div  v-for="(employee, key) in employees" :key="key">
