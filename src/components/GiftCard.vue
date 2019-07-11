@@ -41,10 +41,6 @@
                   </v-flex>
                 </v-layout>
               </v-card>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-card>
 </template>
 
 <script>

@@ -1,7 +1,6 @@
 <template >
 <div>
-<v-hover>
-<v-card :color="bg_color" class="ma-1 pa-3" slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
+<v-card :color="bg_color" class="ma-1 pa-3">
   <v-container>
     <v-layout justify-center wrap>
       <v-flex xs12 md4>
@@ -33,18 +32,16 @@
 
       </v-layout>
 
-      <v-expand-transition>
+      <!-- <v-expand-transition>
       <v-btn  v-show="hover" color="primary" @click="message" class=caption>  信息<v-icon dark right>message</v-icon></v-btn>
       </v-expand-transition>
 
       <v-expand-transition>
       <v-btn v-show="hover"  color="success" @click.stop="make_appointment" class=caption>  预约<v-icon dark right>fa-calendar-check</v-icon></v-btn>
-      </v-expand-transition>
+      </v-expand-transition> -->
 
       </v-container>
   </v-card>
-
-  </v-hover>
   <v-layout row justify-center>
     <v-dialog
       v-model="dialog"

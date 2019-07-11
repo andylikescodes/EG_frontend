@@ -3,7 +3,7 @@
     class="mb-5"
     
   >
-  <div style="height:50vh;overflow: auto">
+  <div style="max-height:50vh;overflow: auto">
   <v-list two-line >
     <v-divider></v-divider>
    <div  v-for="(employee, key) in employees" :key="key">
@@ -34,6 +34,7 @@ export default {
     employee_list_classes: [],
     selected_employee: null
   }),
+  props:["onlyDiscord"],
   components: {
   },
   methods: {
@@ -55,6 +56,12 @@ export default {
   mounted(){
     this.$http.get(server_ip+"/employees/list", axios_config).then(res=>{
       this.employees = res.data
+      //console.log(this.employees)
+      if (this.onlyDiscord){
+        this.employees = this.employees.filter((x)=>{
+          return !!x.discordID
+        })
+      }
       console.log(this.employees)
       //to make a initial employee classes list:
       let temp_list = []
