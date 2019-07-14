@@ -10,7 +10,7 @@
         </v-flex>
       </v-layout>
       <v-layout row justify-center>
-    <v-dialog v-model="booking_dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+    <v-dialog v-model="booking_dialog" fullscreen persistent hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
           <v-btn icon dark @click="booking_dialog = false">
@@ -47,6 +47,8 @@
           <v-divider/>
         <div class="title text-xs-right mt-2">账户余额: <span class="green--text text--darken-2 text-xs-right">{{this.user_profile.balance}}</span></div>
         <div class="title text-xs-right mt-2">总价: <span class="green--text text--darken-2 text-xs-right">{{total_price}}</span></div> 
+        <div class="subheading mt-2 grey--text">*注：总价预估价格，实际价格以陪玩结单时的报单为准 </div> 
+        <div class="subheading mt-2 grey--text">**注：目前APP下单默认客户下的LOL单 </div> 
           <v-layout>
             <v-flex>
               <v-btn color="primary" @click="submit_order">确定</v-btn>
@@ -153,7 +155,7 @@ export default {
     },
     time_radios(val){
       console.log(val)
-      if (val==-1){
+      if (val==-1 && this.user_profile.balance<50){
         EventBus.$emit("danger_alert","账户余额超过50才能玩到爽！")
         this.time_radios=null
       }

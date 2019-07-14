@@ -8,7 +8,7 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import Axios from 'axios'
-
+import {server_ip, axios_config} from "./configs/web_configs"
 import { EventBus } from './utils/event-bus.js';
 Vue.prototype.$http = Axios;
 Vue.config.productionTip = false
@@ -54,6 +54,11 @@ new Vue({
   store,
   beforeCreate(){
     this.$store.commit('initialiseStore');
+    this.$http.get(server_ip+"/user/user_profile", axios_config).then(res=>{
+      this.$store.commit("update_user_profile", res.data.user_profile)
+    }).catch(err=>{
+      console.log(err)
+    })
   },
   render: h => h(App)
 }).$mount('#app')

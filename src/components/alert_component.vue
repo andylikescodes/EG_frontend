@@ -11,7 +11,7 @@
      {{ warning_alert_text }}
      <v-btn
        flat
-       @click="close_warning"
+       @click.prevent="close_warning"
        right
      >
        关闭
@@ -28,7 +28,7 @@
       {{ danger_alert_text }}
       <v-btn
         flat
-        @click="close_danger"
+        @click.prevent="close_danger"
         right
       >
         关闭
@@ -45,7 +45,7 @@
        {{ success_alert_text }}
        <v-btn
          flat
-         @click="close_success"
+         @click.prevent="close_success"
          right
        >
          关闭
