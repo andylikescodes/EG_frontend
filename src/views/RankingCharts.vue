@@ -129,6 +129,7 @@ export default {
       .then(res=>{
         if (res.data == "success"){
           EventBus.$emit("success_alert", "我已经向大家广泛征求订单了，请保持Discord畅通，您的陪玩已经上路！")
+          this.booking_dialog=false
         }
       })
       .catch(err=>{
