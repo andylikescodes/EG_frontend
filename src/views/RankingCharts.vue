@@ -120,6 +120,21 @@ export default {
         EventBus.$emit("danger_alert", "输入有误,请检查")
         return
       }
+      var order_config = {from: this.user_profile._id}
+
+      if (this.total_time){
+        order_config.duration = this.total_time
+      }
+      this.$http.post(server_ip+"/order/add", order_config, axios_config)
+      .then(res=>{
+        if (res.data == "success"){
+          EventBus.$emit("success_alert", "我已经向大家广泛征求订单了，请保持Discord畅通，您的陪玩已经上路！")
+        }
+      })
+      .catch(err=>{
+        EventBus.$emit("danger_alert","系统错误！")
+        console.log(err)
+      })
     }
   },
   mounted(){
