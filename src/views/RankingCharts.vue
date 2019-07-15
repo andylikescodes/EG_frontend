@@ -33,6 +33,9 @@
             
           </v-layout>
           <v-layout>
+            <GameSelection @value_changed="update_service" label="选择游戏项目（可留空）"/>
+          </v-layout>
+          <v-layout>
             <v-flex>
               <v-radio-group v-model="time_radios" :mandatory="false" label="选择时长：">
                 <v-radio label="一个小时" :value="1"></v-radio>
@@ -43,6 +46,20 @@
               </v-radio-group>
             </v-flex>
             
+          </v-layout>
+          <v-layout>
+            <v-flex>
+              <v-text-field v-model="rank" label="段位需求（可留空）">
+
+              </v-text-field>
+            </v-flex>
+            
+          </v-layout>
+          
+          <v-layout>
+            <v-textarea label="其他需求（可以留空）" v-model="requirement">
+
+            </v-textarea>
           </v-layout>
           <v-divider/>
         <div class="title text-xs-right mt-2">账户余额: <span class="green--text text--darken-2 text-xs-right">{{this.user_profile.balance}}</span></div>
@@ -72,8 +89,9 @@ import EmployeeNameCard from "../components/EmployeeNameCard.vue"
 import EmployeeSelector from "../components/EmployeeSelector"
 import {EventBus} from "../utils/event-bus"
 import {mapGetters} from "vuex"
+import GameSelection from "../components/GameSelection"
 export default {
-  components: {EmployeeNameCard, EmployeeSelector},
+  components: {EmployeeNameCard, EmployeeSelector, GameSelection},
   data() {
 
     return {
@@ -83,8 +101,10 @@ export default {
       random_pick: true,
       //bg_loop: ['amber', 'grey lighten-1', 'brown lighten-1', 'green lighten-5'],
       team: [
-    ]
-
+    ],
+      requirement: "",
+      rank: "",
+      service: ""
     }
   },
   computed:{
@@ -115,15 +135,28 @@ export default {
     // compute_path(path){
     //   return server_ip+path
     // }
+    update_service(val){
+      this.service=val
+    },
     submit_order(){
       if (!this.total_price){
         EventBus.$emit("danger_alert", "输入有误,请检查")
         return
       }
       var order_config = {from: this.user_profile._id}
-
+      if (this.service){
+        order_config.service = this.service
+      }
       if (this.total_time){
         order_config.duration = this.total_time
+      }
+
+      if (this.rank){
+        order_config.rank = this.rank
+      }
+
+      if (this.requirement){
+        order_config.requirement = this.requirement
       }
       this.$http.post(server_ip+"/order/add", order_config, axios_config)
       .then(res=>{

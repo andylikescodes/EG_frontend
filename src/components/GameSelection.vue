@@ -5,7 +5,7 @@
     :search-input.sync="search"
     hide-selected
     hint="如果有没有包含的新项目，可以直接输入然后回车创建！"
-    label="选择项目"
+    :label="label"
     multiple
     persistent-hint
     small-chips
@@ -29,7 +29,12 @@
       model: [],
       search: null
     }),
-
+    props:{
+      label: {
+        type: String,
+        default: "选择项目"
+      }
+    },
     watch: {
       model (val) {
         this.$emit("value_changed",val)
