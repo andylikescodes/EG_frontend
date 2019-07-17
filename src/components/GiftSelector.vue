@@ -3,7 +3,7 @@
     class="mb-5"
     
   >
-  <div style="height:45vh;overflow: auto">
+  <div style="height:50vh;overflow: auto">
   <v-list three-line >
     <v-divider></v-divider>
    <div  v-for="(gift, key) in activated_gifts" :key="key">
@@ -30,7 +30,7 @@
 
 <script>
 import {server_ip, axios_config} from "../configs/web_configs"
-import { EventBus } from '../utils/event-bus.js';
+//import { EventBus } from '../utils/event-bus.js';
 export default {
   data: () => ({
       gift_list_classes: [],
@@ -69,7 +69,7 @@ export default {
   mounted(){
       this.$http.get(server_ip+"/gift/list", axios_config).then(res=>{
         this.gifts = res.data
-        let temp_list = []
+        this.gift_list_classes = []
         for (let i=0; i<=this.activated_gifts.length;i++){
           this.gift_list_classes.push("inactive_list_item")
         }

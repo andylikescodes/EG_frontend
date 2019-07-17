@@ -2,7 +2,7 @@
   <div class="rank">
     <!-- <h1 style="text-align:center;" class="heading--text mt-3">大家的名片</h1> -->
       <v-container>
-      <v-btn @click="booking_dialog=true" icon top right fixed fab style="top:12%" color="primary"><v-icon dark>fa-calendar-check</v-icon></v-btn>
+      <v-btn @click="start_booking" icon top right fixed fab style="top:12%" color="primary"><v-icon dark>fa-calendar-check</v-icon></v-btn>
       <v-layout wrap justify  >
         <v-flex xs12 ma-2 v-for="(member, index) in team" :key="index">
         <EmployeeNameCard bg_color="white" :member="member">
@@ -27,7 +27,7 @@
           <v-layout wrap>
             <v-flex>
               <v-checkbox v-model="random_pick" label="随机分配小姐姐"></v-checkbox>
-              <EmployeeSelector v-show="!random_pick" :onlyDiscord="true"/>
+              <EmployeeSelector @selected_employee_changed="select_employee" v-show="!random_pick" :onlyDiscord="true"/>
               
             </v-flex>
             
@@ -90,6 +90,7 @@ import EmployeeSelector from "../components/EmployeeSelector"
 import {EventBus} from "../utils/event-bus"
 import {mapGetters} from "vuex"
 import GameSelection from "../components/GameSelection"
+import {rank_employees_with_status} from "../utils/rank-employees"
 export default {
   components: {EmployeeNameCard, EmployeeSelector, GameSelection},
   data() {
@@ -104,11 +105,16 @@ export default {
     ],
       requirement: "",
       rank: "",
-      service: ""
+      service: "",
+      employee: null
     }
   },
   computed:{
-    ...mapGetters({user_profile:"user_profile"}),
+    ...mapGetters(
+      {
+        user_profile:"user_profile",
+        employee_status: "employee_status"
+      }),
     total_price(){
       if (this.time_radios == -1){
         return "打完再说"
@@ -135,8 +141,18 @@ export default {
     // compute_path(path){
     //   return server_ip+path
     // }
+    start_booking(){
+      if(!this.user_profile.discordID){
+        EventBus.$emit("danger_alert", "你还没有绑定Discord账号，请前往设定绑定，然后再使用该功能！")
+      }
+      this.booking_dialog=true
+    },
     update_service(val){
       this.service=val
+    },
+    select_employee(e){
+
+      this.employee=e
     },
     submit_order(){
       if (!this.total_price){
@@ -144,6 +160,9 @@ export default {
         return
       }
       var order_config = {from: this.user_profile._id}
+      if (this.employee){
+        order_config.to = this.employee._id
+      }
       if (this.service){
         order_config.service = this.service
       }
@@ -161,7 +180,7 @@ export default {
       this.$http.post(server_ip+"/order/add", order_config, axios_config)
       .then(res=>{
         if (res.data == "success"){
-          EventBus.$emit("success_alert", "我已经向大家广泛征求订单了，请保持Discord畅通，您的陪玩已经上路！")
+          EventBus.$emit("success_alert", "我已经为你下订单了，请保持Discord畅通，稍微耐心等待，您的陪玩已经上路！")
           this.booking_dialog=false
         }
       })
@@ -174,22 +193,20 @@ export default {
   mounted(){
     this.$http.get(server_ip+"/employees/list", axios_config).then(res=>{
       this.team = res.data
+      console.log(this.team)
+      rank_employees_with_status(this.team, this.employee_status)
     }).catch(err=>{console.log(err)})
   },
   watch:{
-    random_pick(val){ // a temporary method to disable directional order because it's not ready yet
-      console.log(val)
-      if (!val){
-        // EventBus.$emit("danger_alert", "目前暂时只支持随机订单！")
-        alert("目前暂时只支持随机订单！")
-        this.$nextTick(()=>{
-           this.random_pick = true
-         })
-        
+
+    employee_status(status){
+      if (!this.team){
+        console.log("didn't receive data yet")
+        return
       }
+      rank_employees_with_status(this.team, status)
     },
     time_choosed(val){
-      console.log("aaa")
       if(val<0){
         EventBus.$emit("danger_alert", "请输入大于0的数！")
         this.$nextTick(()=>{

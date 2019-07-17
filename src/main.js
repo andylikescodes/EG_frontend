@@ -10,6 +10,7 @@ import './registerServiceWorker'
 import Axios from 'axios'
 import {server_ip, axios_config} from "./configs/web_configs"
 import { EventBus } from './utils/event-bus.js';
+import './plugins/vue-sodcketIO'
 Vue.prototype.$http = Axios;
 Vue.config.productionTip = false
 

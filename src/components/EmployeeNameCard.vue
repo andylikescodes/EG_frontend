@@ -11,7 +11,8 @@
       <v-flex xs12 md8>
           <v-card-title primary-title>
             <div >
-              <div class="namecard-title">{{member.username}}</div>
+              <div class="namecard-title">{{member.username}}</div> 
+              <StatusBar :status="member.status"/>
               <div class="subheading namecard-popularity"> 人气: {{member.popularity}}</div>
               <div class="subheading namecard-text grey--text text--darken-1">{{member.description}}</div>
             </div>
@@ -81,15 +82,19 @@
 </div>
 </template>
 <script>
-  import {server_ip, axios_config} from "../configs/web_configs"
+  import {server_ip} from "../configs/web_configs"
   import {icon_paths} from "../configs/app_configs"
   import { EventBus } from '../utils/event-bus';
+  import StatusBar from "./StatusBar"
   export default {
     data() {
       return {
         dialog: false,
         icon_paths : icon_paths
       }
+    },
+    components:{
+      StatusBar
     },
     props: ["bg_color", "member"],
     methods:{
@@ -117,9 +122,6 @@
         win.focus();
       }
     },
-    mounted(){
-      //Sconsole.log(this.member)
-    }
   }
 </script>
 <style scoped>

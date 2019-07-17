@@ -168,7 +168,8 @@ export default {
     },
     mounted (){
       
-      this.$http.get(server_ip+"/user/balance", axios_config).then(res=>{
+      this.$http.get(server_ip+"/user/balance", axios_config)
+      .then(res=>{
         this.balance = res.data.balance
       }).catch(err=>{
         console.log(err)
@@ -199,7 +200,8 @@ export default {
       },
       send_gift: function(){
         this.$http.post(server_ip+'/gift/send_gift', {giftid:this.selected_gift._id, to_id:this.selected_employee._id, message:this.selected_message}, axios_config).then((res)=>{
-          console.log('sent gift')
+          //console.log('sent gift')
+          console.log(res.data)
           EventBus.$emit("success_alert","送礼成功")
           this.$router.push("/gift")
           EventBus.$emit("not_loading","")

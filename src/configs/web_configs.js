@@ -1,3 +1,5 @@
+var server_ip = ""
+var axios_config = ""
 if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "test")
   {
     server_ip = ""
