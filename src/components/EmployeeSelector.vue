@@ -33,7 +33,7 @@
 
 <script>
 import {server_ip, axios_config} from "../configs/web_configs"
-import {rank_employees_with_status} from "../utils/rank-employees"
+import {rank_employees} from "../utils/rank-employees"
 //import StatusBar from "./StatusBar"
 import {mapGetters} from "vuex"
 //import { EventBus } from '../utils/event-bus.js';
@@ -54,7 +54,7 @@ export default {
   },
   watch:{
     employee_status(){
-      rank_employees_with_status(this.employees, this.employee_status)
+      rank_employees(this.employees, this.employee_status)
       if (this.employee_list_classes.length==0){
         let temp_list = []
       for (let i = 0; i<this.employees.length; i++){
@@ -65,6 +65,16 @@ export default {
     }
   },
   methods: {
+    combine_status: function(){
+    this.employee_status.forEach(x=>{
+        for(let i = 0; i<this.team.length; i++){
+          let member = this.employees[i]
+          if (member.username==x.username){
+            this.$set(this.team[i],"status",x.status) 
+          }
+        }
+      })
+    },
     status_color(employee){
       if(!employee.status){
         return "grey"
@@ -127,8 +137,8 @@ export default {
           return !!x.discordID
         })
       }
-
-      rank_employees_with_status(this.employees, this.employee_status)
+      this.combine_status()
+      rank_employees(this.employees, this.employee_status)
       this.employee=this.employee//I don't know why I add this line then it will work (otherwise it won't)
       //to make a initial employee classes list:
       let temp_list = []

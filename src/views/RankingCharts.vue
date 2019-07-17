@@ -90,7 +90,7 @@ import EmployeeSelector from "../components/EmployeeSelector"
 import {EventBus} from "../utils/event-bus"
 import {mapGetters} from "vuex"
 import GameSelection from "../components/GameSelection"
-import {rank_employees_with_status} from "../utils/rank-employees"
+import {rank_employees} from "../utils/rank-employees"
 export default {
   components: {EmployeeNameCard, EmployeeSelector, GameSelection},
   data() {
@@ -188,13 +188,24 @@ export default {
         EventBus.$emit("danger_alert","系统错误！")
         console.log(err)
       })
+    },
+    combine_status: function(){
+    this.employee_status.forEach(x=>{
+        for(let i = 0; i<this.team.length; i++){
+          let member = this.team[i]
+          if (member.username==x.username){
+            this.$set(this.team[i],"status",x.status) 
+          }
+        }
+      })
     }
   },
   mounted(){
     this.$http.get(server_ip+"/employees/list", axios_config).then(res=>{
       this.team = res.data
       console.log(this.team)
-      rank_employees_with_status(this.team, this.employee_status)
+      this.combine_status()
+      rank_employees(this.team)
     }).catch(err=>{console.log(err)})
   },
   watch:{
@@ -204,7 +215,9 @@ export default {
         console.log("didn't receive data yet")
         return
       }
-      rank_employees_with_status(this.team, status)
+      this.combine_status()
+      rank_employees(this.team, status)
+      console.log(this.team)
     },
     time_choosed(val){
       if(val<0){

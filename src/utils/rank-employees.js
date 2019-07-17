@@ -27,24 +27,24 @@ function rank_employees(employee_list,  config){
     employee_list.sort(compare)
 }
 
-function combine_status(list, status){
-    status.forEach(x=>{
-        for(let i = 0; i<list.length; i++){
-          let member = list[i]
-          if (member.username==x.username){
-            member.status=x.status
-          }
-        }
-      })
-}
+// function combine_status(list, status){
+//     status.forEach(x=>{
+//         for(let i = 0; i<list.length; i++){
+//           let member = list[i]
+//           if (member.username==x.username){
+//             member.status = x.status
+//           }
+//         }
+//       })
+// }
 
-function rank_employees_with_status(employee_list, status_list){
-    combine_status(employee_list, status_list)
-    rank_employees(employee_list)
-}
+// function rank_employees_with_status(employee_list, status_list){
+//     combine_status(employee_list, status_list)
+//     rank_employees(employee_list)
+// }
 //def order_list(list, config) // order list by attribute
 export {
     rank_employees,
-    combine_status,
-    rank_employees_with_status
+    //combine_status,
+    //rank_employees_with_status
 }
