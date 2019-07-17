@@ -52,6 +52,11 @@ export default {
       employee_status: "employee_status"
       })
   },
+  watch:{
+    employee_status(){
+      rank_employees_with_status(this.employees, this.employee_status)
+    }
+  },
   methods: {
     status_color(employee){
       if(!employee.status){
@@ -99,9 +104,10 @@ export default {
           this.$set(this.employee_list_classes, i, 'inactive_list_item')
         }
       }
+      //console.log(this.employee_list_classes)
       this.selected_employee = this.employees[key]
       this.$emit("selected_employee_changed", this.selected_employee)
-      console.log(this.selected_employee)
+      //console.log(this.selected_employee)
     },
 
   },
