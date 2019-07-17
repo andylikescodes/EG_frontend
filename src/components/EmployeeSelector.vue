@@ -55,6 +55,13 @@ export default {
   watch:{
     employee_status(){
       rank_employees_with_status(this.employees, this.employee_status)
+      if (this.employee_list_classes.length==0){
+        let temp_list = []
+      for (let i = 0; i<this.employees.length; i++){
+        temp_list.push('inactive_list_item')
+      }
+      this.employee_list_classes=temp_list
+      }
     }
   },
   methods: {
