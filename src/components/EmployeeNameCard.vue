@@ -1,4 +1,4 @@
-<template >
+<template>
 <div>
 <v-card :color="bg_color" class="ma-1 pa-3">
   <v-container>

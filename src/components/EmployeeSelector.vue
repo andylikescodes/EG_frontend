@@ -116,7 +116,7 @@ export default {
       }
 
       rank_employees_with_status(this.employees, this.employee_status)
-      //console.log(this.employees)
+      this.employee=this.employee//I don't know why I add this line then it will work (otherwise it won't)
       //to make a initial employee classes list:
       let temp_list = []
       for (let i = 0; i<this.employees.length; i++){
