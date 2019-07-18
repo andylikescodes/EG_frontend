@@ -4,7 +4,7 @@
       <v-container>
       <v-btn @click="start_booking" icon top right fixed fab style="top:12%" color="primary"><v-icon dark>fa-calendar-check</v-icon></v-btn>
       <v-layout wrap justify  >
-        <v-flex xs12 ma-2 v-for="(member, index) in team" :key="index">
+        <v-flex xs12 ma-2 v-for="(member, index) in sorted_team" :key="index">
         <EmployeeNameCard bg_color="white" :member="member">
         </EmployeeNameCard>
         </v-flex>
@@ -135,7 +135,9 @@ export default {
       else if (this.time_radios == -1) return null
       else return 0
     },
-    
+    sorted_team(){
+      return rank_employees(this.team)
+    }
   },
   methods:{
     // compute_path(path){
@@ -203,7 +205,7 @@ export default {
   mounted(){
     this.$http.get(server_ip+"/employees/list", axios_config).then(res=>{
       this.team = res.data
-      console.log(this.team)
+      //console.log(this.team)
       this.combine_status()
       rank_employees(this.team)
     }).catch(err=>{console.log(err)})
@@ -217,7 +219,7 @@ export default {
       }
       this.combine_status()
       rank_employees(this.team, status)
-      console.log(this.team)
+     // console.log(this.team)
     },
     time_choosed(val){
       if(val<0){
@@ -233,7 +235,7 @@ export default {
       
     },
     time_radios(val){
-      console.log(val)
+      //console.log(val)
       if (val==-1 && this.user_profile.balance<50){
         EventBus.$emit("danger_alert","账户余额超过50才能玩到爽！")
         this.time_radios=null

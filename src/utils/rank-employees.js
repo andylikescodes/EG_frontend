@@ -23,8 +23,9 @@ function rank_employees(employee_list,  config){
     if (!config || config == "default"){
         //rank in a default way
         var compare = default_compare
+        //console.log("sort as default")
     }
-    employee_list.sort(compare)
+    return employee_list.sort(compare)
 }
 
 // function combine_status(list, status){
