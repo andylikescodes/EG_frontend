@@ -54,7 +54,8 @@ export default {
   },
   watch:{
     employee_status(){
-      rank_employees(this.employees, this.employee_status)
+      this.combine_status()
+      rank_employees(this.employees)
       if (this.employee_list_classes.length==0){
         let temp_list = []
       for (let i = 0; i<this.employees.length; i++){
@@ -67,10 +68,10 @@ export default {
   methods: {
     combine_status: function(){
     this.employee_status.forEach(x=>{
-        for(let i = 0; i<this.team.length; i++){
+        for(let i = 0; i<this.employees.length; i++){
           let member = this.employees[i]
           if (member.username==x.username){
-            this.$set(this.team[i],"status",x.status) 
+            this.$set(this.employees[i],"status",x.status) 
           }
         }
       })
@@ -138,9 +139,7 @@ export default {
         })
       }
       this.combine_status()
-      rank_employees(this.employees, this.employee_status)
-      this.employee=this.employee//I don't know why I add this line then it will work (otherwise it won't)
-      //to make a initial employee classes list:
+      rank_employees(this.employees)
       let temp_list = []
       for (let i = 0; i<this.employees.length; i++){
         temp_list.push('inactive_list_item')
