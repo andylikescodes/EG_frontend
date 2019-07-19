@@ -24,6 +24,13 @@
                 <v-subheader>小时单价</v-subheader>
                 <v-text-field v-model="unit_price" type="Number" solo label="小时单价"></v-text-field>
             </v-flex>
+            
+        </v-layout>
+        <v-layout v-if="finishing" ma-3>
+          <v-flex xs12 md6 mx-4>
+                <v-subheader>其他信息</v-subheader>
+                <v-textarea v-model="employee_comment" solo label="如有其他备注可以写在这里"> </v-textarea>
+            </v-flex>
         </v-layout>
          <v-card-actions>
           <v-btn  color="primary" class="ma-3" @click="finish_order">结束订单</v-btn>
@@ -40,7 +47,7 @@ import {server_ip, axios_config} from "../../configs/web_configs"
 export default {
     mounted(){
         
-        EventBus.$on("show_ongoing_duty",(msg)=>{
+        EventBus.$on("show_ongoing_duty",()=>{
             //console.log("hahaha")
             this.dialog = true
             this.$http.get(server_ip+"/order/ongoing_duty",axios_config).then(res=>{
@@ -55,7 +62,8 @@ export default {
         order: null,
         finishing: false,
         duration: null,
-        unit_price: 22
+        unit_price: 22,
+        employee_comment: ""
       }
     },
     methods:{
@@ -82,7 +90,8 @@ export default {
             }
             this.$http.post(server_ip+"/order/end_duty", {
                 duration: this.duration,
-                unit_price: this.unit_price
+                unit_price: this.unit_price,
+                employee_comment: this.employee_comment
             }, axios_config).then(res=>{
                 if (res.data == "success")
                 {

@@ -1,5 +1,15 @@
 <template>
   <div>
+    <v-tabs
+      v-model="active"
+      :color="theme.main_color"
+      slider-color="yellow"
+      class="default-font"
+    >
+    <v-tab ripple>
+      基本信息
+    </v-tab>
+     <v-tab-item>
     <v-container class="my-5">
 
       <v-layout row wrap>
@@ -60,6 +70,14 @@
       </v-layout>
 
     </v-container>
+     </v-tab-item>
+     <v-tab ripple>
+       订单历史
+     </v-tab>
+     <v-tab-item>
+       <OrderHistory/>
+     </v-tab-item>
+    </v-tabs>
   </div>
 </template>
 <script>
@@ -69,6 +87,7 @@ import {server_ip, axios_config} from "../configs/web_configs"
 import Editable from "../components/editable_text.vue"
 import EditableDate from "../components/editable_date.vue"
 import ImageUpload from "../components/ImageUpload.vue"
+import OrderHistory from "../components/order/OrderHistory"
 export default {
   data(){
     return {
@@ -89,7 +108,8 @@ export default {
   components:{
     Editable,
     EditableDate,
-    ImageUpload
+    ImageUpload,
+    OrderHistory
   },
   mounted(){
     //this.temp_user_profile=Object.assign(this.temp_user_profile,this.user_profile)
@@ -99,7 +119,8 @@ export default {
   },
   computed:{
     ...mapGetters({
-      user_profile: "user_profile"
+      user_profile: "user_profile",
+      theme: "theme"
     }),
     avatar_path(){
       
