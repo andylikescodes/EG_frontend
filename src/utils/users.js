@@ -1,5 +1,6 @@
 import {server_ip, axios_config} from "../configs/web_configs"
 import Axios from 'axios'
+import vm from "../main"
 
 
 function login (form) //form should have email and password field
@@ -7,6 +8,8 @@ function login (form) //form should have email and password field
   return new Promise((resolve, reject)=>{
     Axios.post(server_ip+'/auth/login', form, axios_config).then((res)=>{
       if(res.data.status=='success'){
+        vm.$socket.connect()
+        //console.log("emitting auth")
         resolve(res)
       }
       else{
@@ -45,6 +48,8 @@ function get_profile(){
     })
   })
 }
+
+
 export {
   login,
   logout,

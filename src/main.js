@@ -50,7 +50,7 @@ Axios.interceptors.response.use(response => {
 });
 
 
-new Vue({
+var vm = new Vue({
   router,
   store,
   beforeCreate(){
@@ -62,4 +62,7 @@ new Vue({
     })
   },
   render: h => h(App)
-}).$mount('#app')
+})
+vm.$mount('#app')
+
+export default vm

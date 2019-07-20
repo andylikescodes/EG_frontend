@@ -34,7 +34,7 @@
                     return {
                         icon: "fa-user-clock",
                         content: "离开",
-                        color: "yellow"
+                        color: "yellow darken-4"
                     }
                     
                 case "dnd":

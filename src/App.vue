@@ -37,6 +37,17 @@ export default {
   },
   mounted(){
   },
+  sockets: {
+    connect(){
+      this.$socket.emit('authentication', {})
+      this.$socket.on("authenticated",function(){
+        console.log("authenticated")
+      })
+    },
+    disconnect(){
+      console.log("socketIO disconnected")
+    }
+  },
   computed:{
     ...mapGetters({
       theme: "theme"

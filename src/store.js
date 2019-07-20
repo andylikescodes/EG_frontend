@@ -78,7 +78,7 @@ export default new Vuex.Store({
       state.settings.backlit = val
     },
     //socketIO registered commit:
-    SOCKET_connect(state){
+    SOCKET_connect(state, socket){
       console.log("socketIO connected")
       state.temporary.socketIO_connected = true
     },
